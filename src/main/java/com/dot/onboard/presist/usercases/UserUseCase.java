@@ -9,7 +9,7 @@ import com.dot.onboard.applications.requests.v1.user.UserUpdateDto;
 import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.global.Config;
 import com.dot.onboard.presist.models.user.User;
-import com.dot.onboard.presist.repos.user.UserRepo;
+import com.dot.onboard.presist.repos.UserRepo;
 import com.dot.onboard.utility.ImageStorageUtil;
 import com.dot.onboard.utility.JwtTokenUtil;
 import java.io.IOException;

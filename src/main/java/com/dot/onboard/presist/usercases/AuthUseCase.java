@@ -9,7 +9,7 @@ import com.dot.onboard.applications.requests.v1.user.UserLoginDto;
 import com.dot.onboard.applications.response.v1.user.UserDetailToken;
 import com.dot.onboard.global.PasswordEncoder;
 import com.dot.onboard.presist.models.user.User;
-import com.dot.onboard.presist.repos.user.UserRepo;
+import com.dot.onboard.presist.repos.UserRepo;
 import com.dot.onboard.utility.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
