@@ -26,13 +26,13 @@ public class AuthUseCase {
 
     @Autowired
     private UserRepo userRepo;
-    
+
     @Autowired
     private UserUseCase userUseCase;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -42,9 +42,8 @@ public class AuthUseCase {
     private final UserDetailToken userDetailToken = new UserDetailToken();
 
     public UserDetailToken login(UserLoginDto dto) {
-        UserDetails userDetails = userUseCase.loadUserByUsername(dto.getEmail());
         authenticate(dto.getEmail(), dto.getPassword());
-        System.out.println("--------------------");
+        UserDetails userDetails = userUseCase.loadUserByUsername(dto.getEmail());
         userDetailToken.setToken(jwtTokenUtil.generateToken(userDetails));
         userDetailToken.setEmail(userDetails.getUsername());
         return userDetailToken;
