@@ -4,7 +4,7 @@
  */
 package com.dot.onboard.kernel.configs;
 
-import com.dot.onboard.applications.filters.AuthenticationFilter;
+import com.dot.onboard.applications.filters.GlobalFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecutiryConfig {
 
     @Autowired
-    private AuthenticationFilter filter;
+    private GlobalFilter filter;
 
     @Autowired
     @Qualifier("delegatedAuthenticationEntryPoint")

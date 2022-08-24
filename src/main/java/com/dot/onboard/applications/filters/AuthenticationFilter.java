@@ -7,7 +7,6 @@ package com.dot.onboard.applications.filters;
 import com.dot.onboard.presist.usercases.UserUseCase;
 import com.dot.onboard.utility.JwtTokenUtil;
 import java.io.IOException;
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  *
@@ -26,7 +24,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 @Component
 @Slf4j
-public class AuthenticationFilter extends OncePerRequestFilter {
+public class AuthenticationFilter  {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -34,8 +32,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserUseCase userUseCase;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestToken = request.getHeader("Authorization");
         String username = null;
         String token = null;
@@ -57,8 +54,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        
-        filterChain.doFilter(request, response);
+
     }
 
 }
