@@ -53,7 +53,6 @@ public class AuthUseCase {
         var user = new User();
         var encodedPassword = passwordEncoder.getEncoder().encode(dto.getPassword());
         user.setEmail(dto.getEmail());
-        user.setAvatar(dto.getAvatar());
         user.setName(dto.getName());
         user.setPassword(encodedPassword);
         return userRepo.save(user);

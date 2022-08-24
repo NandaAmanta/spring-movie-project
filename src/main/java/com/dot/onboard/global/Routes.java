@@ -9,10 +9,15 @@ package com.dot.onboard.global;
  * @author ASUS
  */
 public class Routes {
+
     public static final String API = "/api";
     public static final String API_V1 = "/api/v1";
-    
+
     public static final String AUTH = "/auth";
     public static final String LOGIN = "/login";
     public static final String SIGNUP = "/signup";
+    public static final String USER = "/user";
+
+    public static final String ID = "/{id}";
+
 }

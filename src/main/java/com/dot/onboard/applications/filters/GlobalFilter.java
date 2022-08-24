@@ -4,8 +4,6 @@
  */
 package com.dot.onboard.applications.filters;
 
-import com.dot.onboard.presist.usercases.UserUseCase;
-import com.dot.onboard.utility.JwtTokenUtil;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,9 +21,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 @Slf4j
 public class GlobalFilter extends OncePerRequestFilter {
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
     
     @Autowired
     private IpFilter headerValidationFilter;
@@ -33,8 +28,6 @@ public class GlobalFilter extends OncePerRequestFilter {
     @Autowired
     private AuthenticationFilter authFilter;
 
-    @Autowired
-    private UserUseCase userUseCase;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

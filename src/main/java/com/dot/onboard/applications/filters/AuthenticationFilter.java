@@ -33,12 +33,9 @@ public class AuthenticationFilter  {
     private UserUseCase userUseCase;
 
     protected void doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestToken = request.getHeader("Authorization");
+        String token = jwtTokenUtil.resolveToken(request);
         String username = null;
-        String token = null;
-
-        if (requestToken != null && requestToken.startsWith("Bearer ")) {
-            token = requestToken.substring(7);
+        if (token != null) {
             try {
                 username = jwtTokenUtil.getUserNameFromToken(token);
             } catch (Exception ex) {

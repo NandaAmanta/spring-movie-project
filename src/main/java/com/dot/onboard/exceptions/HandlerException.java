@@ -4,10 +4,12 @@
  */
 package com.dot.onboard.exceptions;
 
+import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseFail;
 import io.jsonwebtoken.SignatureException;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,13 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         response.setMessage("Access Denied");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+    }
+    
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<Response> handleUserNotFound(Exception exception) {
+        response.setMessage(exception.getMessage());
+        response.setErrors(List.of("User not found"));
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @Override
