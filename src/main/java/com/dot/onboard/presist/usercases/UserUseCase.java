@@ -9,6 +9,7 @@ import com.dot.onboard.applications.requests.v1.user.UserUpdateDto;
 import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.global.Config;
 import com.dot.onboard.presist.models.user.User;
+import com.dot.onboard.presist.models.user.UserRole;
 import com.dot.onboard.presist.repos.UserRepo;
 import com.dot.onboard.utility.ImageStorageUtil;
 import com.dot.onboard.utility.JwtTokenUtil;
@@ -48,7 +49,7 @@ public class UserUseCase implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email).orElseThrow();
         UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
-                .authorities("USER")
+                .authorities(this.getRole(user).toString())
                 .password(user.getPassword()).build();
         return userDetails;
     }
@@ -75,6 +76,10 @@ public class UserUseCase implements UserDetailsService {
         }
 
         return userRepo.save(user);
+    }
+
+    private UserRole getRole(User user) {
+        return user.getIsAdmin() ? UserRole.ADMIN : UserRole.USER;
     }
 
 }

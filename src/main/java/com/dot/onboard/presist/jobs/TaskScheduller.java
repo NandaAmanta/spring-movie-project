@@ -20,8 +20,8 @@ public class TaskScheduller {
     @Autowired
     private MovieTask movieTask;
     
-//    @Scheduled(cron = "0 0 * * * *")
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(cron = "0 0 * * * *")
+//    @Scheduled(fixedDelay = 5000)
     public void syncOngoingMovieSchedulle() {
         log.info("patching ongoing movie data...");
         movieTask.patchOngoingMovies();

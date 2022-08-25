@@ -10,6 +10,7 @@ import com.dot.onboard.utility.ResponseFail;
 import io.jsonwebtoken.SignatureException;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,22 +28,37 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * @author ASUS
  */
 @RestControllerAdvice
+@Slf4j
 public class HandlerException extends ResponseEntityExceptionHandler {
 
     private final ResponseFail response = new ResponseFail();
 
-    @ExceptionHandler({AccessDeniedException.class, AuthenticationException.class, SignatureException.class})
-    public ResponseEntity<Response> handle() {
+    @ExceptionHandler({AuthenticationException.class, SignatureException.class})
+    public ResponseEntity<Response> handleAuthenticationException() {
+        response.setMessage("You are not authenticated, need a valid token");
+        response.setErrors(new ArrayList<>());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Response> handleAccessDeniedException() {
         response.setMessage("Access Denied");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
-    
+
     @ExceptionHandler(UserNotFound.class)
     public ResponseEntity<Response> handleUserNotFound(Exception exception) {
         response.setMessage(exception.getMessage());
         response.setErrors(List.of("User not found"));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Response> handleUnknownError(Exception exception) {
+        log.error(exception.getMessage());
+        response.setMessage("Internal Server Error");
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override

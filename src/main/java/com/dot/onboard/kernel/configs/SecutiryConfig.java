@@ -5,6 +5,7 @@
 package com.dot.onboard.kernel.configs;
 
 import com.dot.onboard.applications.filters.GlobalFilter;
+import com.dot.onboard.presist.models.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -23,7 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author ASUS
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecutiryConfig {
 
     @Autowired
@@ -31,7 +33,7 @@ public class SecutiryConfig {
 
     @Autowired
     @Qualifier("delegatedAuthenticationEntryPoint")
-    AuthenticationEntryPoint authEntryPoint;
+    DelegatedAuthenticationEntryPoint authEntryPoint;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
@@ -45,10 +47,12 @@ public class SecutiryConfig {
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/signup", "/api/v1/auth/login", "/h2-console/**").permitAll()
                 .antMatchers("/api/v1/movies").permitAll()
+                .antMatchers("/api/v1/backoffice/**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .exceptionHandling().authenticationEntryPoint(authEntryPoint);
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint)
+                .accessDeniedHandler(authEntryPoint);
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

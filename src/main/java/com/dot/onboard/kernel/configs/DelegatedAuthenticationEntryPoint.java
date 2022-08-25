@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
@@ -22,7 +24,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
  */
 @Component("delegatedAuthenticationEntryPoint")
 @Slf4j
-public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoint, AccessDeniedHandler {
 
     @Autowired
     @Qualifier("handlerExceptionResolver")
@@ -34,4 +36,12 @@ public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoi
         log.error(authException.getMessage());
         resolver.resolveException(request, response, null, authException);
     }
+
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+
+        log.error(accessDeniedException.getMessage());
+        resolver.resolveException(request, response, null, accessDeniedException);
+    }
+
 }
