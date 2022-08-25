@@ -42,7 +42,9 @@ public class SecutiryConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/api/v1/auth/signup", "/api/v1/auth/login", "/h2-console/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/api/v1/auth/signup", "/api/v1/auth/login", "/h2-console/**").permitAll()
+                .antMatchers("/api/v1/movies").permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

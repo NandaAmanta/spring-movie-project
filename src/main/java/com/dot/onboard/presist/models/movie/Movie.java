@@ -6,20 +6,14 @@ package com.dot.onboard.presist.models.movie;
 
 import com.dot.onboard.presist.models.moveSchedule.MovieSchedule;
 import com.dot.onboard.presist.models.movieTags.MovieTags;
-import com.dot.onboard.presist.models.tag.Tag;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
@@ -36,13 +30,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     private String title;
+    
+    @Lob
+    @Column(length = 512)
     private String overview;
     private String poster;
-
 
     @OneToMany(mappedBy = "tag")
     private Set<MovieTags> tags = new HashSet<>();

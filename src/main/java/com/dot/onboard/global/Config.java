@@ -9,6 +9,11 @@ package com.dot.onboard.global;
  * @author ASUS
  */
 public class Config {
+    
+    public static final String MOVIE_ALL_CACHE = "movieAllCache";
+    public static final String MOVIE_DETAIL_CACHE = "movieDetailCache";
+    
+    
     public static String getProjectDir(){
         return System.getProperty("user.dir");
     }

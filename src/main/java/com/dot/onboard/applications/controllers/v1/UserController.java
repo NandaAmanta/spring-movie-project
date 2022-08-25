@@ -13,13 +13,10 @@ import com.dot.onboard.utility.ResponseSuccess;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +33,7 @@ public class UserController {
 
     private final ResponseSuccess response = new ResponseSuccess();
 
-    @GetMapping
+    @GetMapping(Routes.ME)
     public ResponseEntity<Response> selfDetail(HttpServletRequest req) {
         var user = userUseCase.detailByHttpServletRequest(req);
         UserDetail userDetail = UserDetail.fromEntity(user);
@@ -46,7 +43,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping
+    @PutMapping(Routes.ME)
     public ResponseEntity<Response> update(@ModelAttribute UserUpdateDto dto, HttpServletRequest req) throws IOException {
         var user = userUseCase.update(dto, req);
         UserDetail userDetail = UserDetail.fromEntity(user);

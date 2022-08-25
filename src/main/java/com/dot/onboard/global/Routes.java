@@ -16,7 +16,13 @@ public class Routes {
     public static final String AUTH = "/auth";
     public static final String LOGIN = "/login";
     public static final String SIGNUP = "/signup";
+    
     public static final String USER = "/user";
+    public static final String ME = "/me";
+    
+    public static final String BACKOFFICE = "/backoffice";
+    
+    public static final String MOVIE = "/movies";
 
     public static final String ID = "/{id}";
 
