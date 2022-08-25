@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dot.onboard.presist.usercases;
+package com.dot.onboard.presist.usecases;
 
 import com.dot.onboard.applications.requests.v1.UploadImageDto;
 import com.dot.onboard.applications.requests.v1.user.UserUpdateDto;

@@ -5,7 +5,7 @@
 package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.global.Routes;
-import com.dot.onboard.presist.usercases.UserUseCase;
+import com.dot.onboard.presist.usecases.UserUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
 import org.springframework.beans.factory.annotation.Autowired;

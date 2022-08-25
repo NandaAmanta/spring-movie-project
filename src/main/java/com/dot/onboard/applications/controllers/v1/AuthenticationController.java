@@ -8,7 +8,7 @@ import com.dot.onboard.applications.requests.v1.user.UserCreateDto;
 import com.dot.onboard.applications.requests.v1.user.UserLoginDto;
 import com.dot.onboard.applications.response.v1.user.UserDetail;
 import com.dot.onboard.global.Routes;
-import com.dot.onboard.presist.usercases.AuthUseCase;
+import com.dot.onboard.presist.usecases.AuthUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
 import org.springframework.beans.factory.annotation.Autowired;

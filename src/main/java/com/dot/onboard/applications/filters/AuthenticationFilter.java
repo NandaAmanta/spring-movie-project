@@ -4,7 +4,7 @@
  */
 package com.dot.onboard.applications.filters;
 
-import com.dot.onboard.presist.usercases.UserUseCase;
+import com.dot.onboard.presist.usecases.UserUseCase;
 import com.dot.onboard.utility.JwtTokenUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;

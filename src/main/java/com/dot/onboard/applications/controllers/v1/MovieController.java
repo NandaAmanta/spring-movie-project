@@ -6,7 +6,7 @@ package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.models.movie.Movie;
-import com.dot.onboard.presist.usercases.MovieUseCase;
+import com.dot.onboard.presist.usecases.MovieUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
 import io.sentry.Sentry;
