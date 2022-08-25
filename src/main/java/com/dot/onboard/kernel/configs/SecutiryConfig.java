@@ -25,7 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author ASUS
  */
 @Configuration
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecutiryConfig {
 
     @Autowired
@@ -47,7 +47,7 @@ public class SecutiryConfig {
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/signup", "/api/v1/auth/login", "/h2-console/**").permitAll()
                 .antMatchers("/api/v1/movies").permitAll()
-                .antMatchers("/api/v1/backoffice/**").access("hasRole('ADMIN')")
+                .antMatchers("/api/v1/backoffice/**").hasAuthority(UserRole.ADMIN.toString())
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

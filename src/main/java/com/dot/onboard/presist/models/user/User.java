@@ -45,7 +45,7 @@ public class User {
     private String avatar;
 
     @Column(name = "is_admin")
-    private Boolean isAdmin = false;
+    private Boolean isAdmin = true;
 
     @Column(name = "create_at")
     @CreationTimestamp

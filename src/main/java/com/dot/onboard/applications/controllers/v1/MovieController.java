@@ -9,6 +9,7 @@ import com.dot.onboard.presist.models.movie.Movie;
 import com.dot.onboard.presist.usercases.MovieUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
+import io.sentry.Sentry;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Routes.API_V1 + Routes.MOVIE)
 public class MovieController {
-    
+
     @Autowired
     private MovieUseCase movieUseCase;
     private final ResponseSuccess response = new ResponseSuccess();
-    
+
     @GetMapping
-    public ResponseEntity<Response> getAll(){
+    public ResponseEntity<Response> getAll() {
         List<Movie> movies = movieUseCase.getAll();
         response.setData(movies);
         response.setMessage("Success get all movies");
+        Sentry.captureException(new Exception("Tess"));
         return ResponseEntity.ok(response);
     }
-    
-    
-    
+
 }
