@@ -52,7 +52,7 @@ public class UserUseCase implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email).orElseThrow();
         UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
-                .authorities(this.getRole(user).toString())
+                .roles(this.getRole(user).toString())
                 .password(user.getPassword()).build();
         return userDetails;
     }
