@@ -5,6 +5,11 @@
 package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.global.Routes;
+import com.dot.onboard.presist.usercases.UserUseCase;
+import com.dot.onboard.utility.Response;
+import com.dot.onboard.utility.ResponseSuccess;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(Routes.API_V1 + Routes.BACKOFFICE)
-//@PreAuthorize("hasRole('ADMIN')")
 public class BackOfficeController {
     
+    private final ResponseSuccess response= new ResponseSuccess();
+    
+    @Autowired
+    private UserUseCase userUseCase;
+    
     @GetMapping(Routes.USER)
-    public String getAllUser(){
-        return "hello world";
+    public ResponseEntity<Response> getAllUser(){
+        var data = userUseCase.getAll();
+        response.setData(data);
+        response.setMessage("Success get all users");
+        return ResponseEntity.ok(response);
     }
     
 }

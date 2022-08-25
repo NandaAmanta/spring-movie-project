@@ -5,6 +5,7 @@
 package com.dot.onboard.applications.response.v1.user;
 
 import com.dot.onboard.presist.models.user.User;
+import com.dot.onboard.presist.models.user.UserRole;
 import lombok.Data;
 
 /**
@@ -13,15 +14,18 @@ import lombok.Data;
  */
 @Data
 public class UserDetail {
+
     private String name;
     private String email;
+    private Enum role;
     private String avatar;
-    
-    public static UserDetail fromEntity(User user){
+
+    public static UserDetail fromEntity(User user) {
         var dto = new UserDetail();
         dto.setAvatar(user.getAvatar());
         dto.setEmail(user.getEmail());
         dto.setName(user.getName());
+        dto.setRole(user.getIsAdmin() ? UserRole.ADMIN : UserRole.USER);
         return dto;
     }
 }

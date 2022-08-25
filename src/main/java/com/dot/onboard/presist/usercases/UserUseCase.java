@@ -6,6 +6,7 @@ package com.dot.onboard.presist.usercases;
 
 import com.dot.onboard.applications.requests.v1.UploadImageDto;
 import com.dot.onboard.applications.requests.v1.user.UserUpdateDto;
+import com.dot.onboard.applications.response.v1.user.UserDetail;
 import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.global.Config;
 import com.dot.onboard.presist.models.user.User;
@@ -17,7 +18,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -76,6 +79,14 @@ public class UserUseCase implements UserDetailsService {
         }
 
         return userRepo.save(user);
+    }
+    
+    public List<UserDetail> getAll(){
+        var users = userRepo.findAll();
+        List<UserDetail> userDetails = new ArrayList<>();
+        users.forEach((element) -> userDetails.add(UserDetail.fromEntity(element)));
+        return userDetails;
+        
     }
 
     private UserRole getRole(User user) {
