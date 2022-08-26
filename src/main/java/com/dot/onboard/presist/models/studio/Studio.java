@@ -11,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,10 +22,15 @@ import org.hibernate.annotations.UpdateTimestamp;
  *
  * @author ASUS
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+
 @Entity
 @Table(name = "studios")
 public class Studio {
+    
+    public Studio(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

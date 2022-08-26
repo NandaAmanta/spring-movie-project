@@ -4,10 +4,33 @@
  */
 package com.dot.onboard.applications.response.v1.orderItem;
 
+import com.dot.onboard.applications.response.v1.movie.MovieDetail;
+import com.dot.onboard.applications.response.v1.studio.StudioDetail;
+import com.dot.onboard.presist.models.orderItem.OrderItem;
+import lombok.Data;
+
 /**
  *
  * @author ASUS
  */
+@Data
 public class OrderItemDetail {
+    private Long id;
+    private MovieDetail movie;
+    private StudioDetail studio;
+    private Integer qty;
+    private Double price;
+    private Double subTotalPrice;
+    
+    public static OrderItemDetail fromEntity(OrderItem entity){
+        var orderItemDetail = new OrderItemDetail();
+        orderItemDetail.setId(entity.getId());
+        orderItemDetail.setMovie(MovieDetail.fromEntity(entity.getMovieSchedule().getMovie()));
+        orderItemDetail.setStudio(StudioDetail.fromEntity(entity.getMovieSchedule().getStudio()));
+        orderItemDetail.setQty(entity.getQty());
+        orderItemDetail.setPrice(entity.getPrice());
+        orderItemDetail.setSubTotalPrice(entity.getSubTotalPrice());
+        return orderItemDetail;
+    }
     
 }

@@ -5,8 +5,10 @@
 package com.dot.onboard.presist.usecases;
 
 import com.dot.onboard.applications.requests.v1.studio.StudioCreationDto;
+import com.dot.onboard.applications.response.v1.studio.StudioDetail;
 import com.dot.onboard.presist.models.studio.Studio;
 import com.dot.onboard.presist.repos.StudioRepo;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +28,16 @@ public class StudioUseCase {
         return studioRepo.save(studio);
     }
 
-    public Studio detail(Long id) {
+    public StudioDetail detail(Long id) {
         var studio = studioRepo.findById(id).orElseThrow();
-        return studio;
+        return StudioDetail.fromEntity(studio);
     }
 
-    public List<Studio> getAll() {
+    public List<StudioDetail> getAll() {
         var studios = studioRepo.findAll();
-        return studios;
+        var studioDetails = new ArrayList<StudioDetail>();
+        studios.forEach((e)->studioDetails.add(StudioDetail.fromEntity(e)));
+        return studioDetails;
     }
 
 }

@@ -4,8 +4,6 @@
  */
 package com.dot.onboard.applications.requests.v1.movieSchedule;
 
-import com.dot.onboard.presist.models.moveSchedule.MovieSchedule;
-import java.util.Date;
 import lombok.Data;
 
 /**
@@ -20,7 +18,7 @@ public class MovieSchduleCreationDto {
     private String startTime;
     private String endTime;
     private Double price;
-    private Date date;
+    private String date;
 
 
 }

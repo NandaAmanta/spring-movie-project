@@ -33,8 +33,8 @@ public class MovieController {
 
     @GetMapping
     public ResponseEntity<Response> getAll(@Nullable @RequestParam String keyword, @Nullable @RequestParam String date) {
-        List<Movie> movies = movieUseCase.getAll(keyword, date);
-        response.setData(movies);
+        var data = movieUseCase.getAll(keyword, date);
+        response.setData(data);
         response.setMessage("Success get all movies");
         return ResponseEntity.ok(response);
     }

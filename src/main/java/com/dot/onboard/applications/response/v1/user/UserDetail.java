@@ -15,6 +15,7 @@ import lombok.Data;
 @Data
 public class UserDetail {
 
+    private Long id;
     private String name;
     private String email;
     private Enum role;
@@ -22,6 +23,7 @@ public class UserDetail {
 
     public static UserDetail fromEntity(User user) {
         var dto = new UserDetail();
+        dto.setId(user.getId());
         dto.setAvatar(user.getAvatar());
         dto.setEmail(user.getEmail());
         dto.setName(user.getName());

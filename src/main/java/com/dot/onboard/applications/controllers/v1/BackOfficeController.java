@@ -17,6 +17,7 @@ import com.dot.onboard.presist.usecases.TagUseCase;
 import com.dot.onboard.presist.usecases.UserUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
+import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,23 +73,20 @@ public class BackOfficeController {
     @PostMapping(Routes.STUDIO)
     public ResponseEntity<Response> createStudio(@RequestBody StudioCreationDto dto) {
         var data = studioUseCase.create(dto);
-        response.setData(data);
         response.setMessage("Success create new studio");
         return ResponseEntity.ok(response);
     }
 
     @PostMapping(Routes.MOVIE_SCHEDULE)
-    public ResponseEntity<Response> createMovieSchedule(MovieSchduleCreationDto dto) {
+    public ResponseEntity<Response> createMovieSchedule(@RequestBody MovieSchduleCreationDto dto) throws ParseException {
         var data = movieScheduleUseCase.create(dto);
-        response.setData(data);
         response.setMessage("Success create a movie schedule");
         return ResponseEntity.ok(response);
     }
 
     @PostMapping(Routes.TAG)
-    public ResponseEntity<Response> createTag(TagCreationDto dto) {
+    public ResponseEntity<Response> createTag(@RequestBody TagCreationDto dto) {
         var data = tagUseCase.create(dto);
-        response.setData(data);
         response.setMessage("Success create a tag");
         return ResponseEntity.ok(response);
     }
@@ -96,7 +94,6 @@ public class BackOfficeController {
     @PostMapping(Routes.MOVIE_TAG)
     public ResponseEntity<Response> createMovieTag(MovieTagCreationDto dto) {
         var data = movieTagUseCase.create(dto);
-        response.setData(data);
         response.setMessage("Success add a tag on a movie");
         return ResponseEntity.ok(response);
     }

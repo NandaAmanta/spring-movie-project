@@ -22,6 +22,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,7 +32,8 @@ import org.hibernate.annotations.UpdateTimestamp;
  * @author ASUS
  */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "orders")
 public class Order {
 
@@ -43,7 +46,7 @@ public class Order {
     private PaymentMethod paymentMethod;
 
     @Column(name = "total_item_price")
-    private Integer totalItemPrice;
+    private Double totalItemPrice;
 
     @Column(name = "create_at")
     @CreationTimestamp

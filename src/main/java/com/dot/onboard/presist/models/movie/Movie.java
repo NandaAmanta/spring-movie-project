@@ -16,7 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,16 +27,20 @@ import org.hibernate.annotations.UpdateTimestamp;
  *
  * @author ASUS
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "movies")
 public class Movie {
 
+    public Movie() {
+    }
     @Id
     private Long id;
 
     private String title;
-    
+
     @Lob
     @Column(length = 512)
     private String overview;
@@ -41,9 +48,6 @@ public class Movie {
 
     @OneToMany(mappedBy = "tag")
     private Set<MovieTags> tags = new HashSet<>();
-
-    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
-    private Set<MovieSchedule> movieSchedules;
 
     @Column(name = "play_until")
     private Date playUntil;

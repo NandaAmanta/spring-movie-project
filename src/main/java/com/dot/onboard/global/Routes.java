@@ -24,9 +24,9 @@ public class Routes {
 
     public static final String MOVIE = "/movies";
     
-    public static final String MOVIE_SCHEDULE = "/movies_schedules";
+    public static final String MOVIE_SCHEDULE = "/movie_schedules";
     
-    public static final String MOVIE_TAG = "/movies_tags";
+    public static final String MOVIE_TAG = "/movie_tags";
 
     public static final String TAG = "/tags";
 

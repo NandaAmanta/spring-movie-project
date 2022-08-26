@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.controllers.v1;
 
+import com.dot.onboard.applications.requests.v1.order.ListOrderCreationDto;
 import com.dot.onboard.applications.requests.v1.order.OrderCreationDto;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.OrderUseCase;
@@ -48,14 +49,13 @@ public class OrderController {
         response.setData(data);
         return ResponseEntity.ok(response);
     }
-    
+
     @PostMapping
-    public ResponseEntity<Response> create(@RequestBody OrderCreationDto dto) {
-        var data = orderUseCase.create(dto);
+    public ResponseEntity<Response> create(@RequestBody ListOrderCreationDto dto, HttpServletRequest req) {
+        var data = orderUseCase.create(dto, req);
         response.setMessage("Success create new order");
         response.setData(data);
         return ResponseEntity.ok(response);
     }
-    
 
 }

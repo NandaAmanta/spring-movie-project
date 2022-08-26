@@ -21,6 +21,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -29,7 +31,8 @@ import org.hibernate.annotations.UpdateTimestamp;
  * @author ASUS
  */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "order_items")
 public class OrderItem {
 
@@ -51,9 +54,6 @@ public class OrderItem {
 
     @Column(name = "sub_total_price")
     private Double subTotalPrice;
-
-//    @Column(columnDefinition = "json")
-//    private Map<String, Object> snapshots;
 
     @Column(name = "create_at")
     @CreationTimestamp

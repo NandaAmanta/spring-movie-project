@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.order;
 
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -11,7 +12,8 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
-public class OrderCreationDto {
-    private Long movieScheduleId;
-    private Integer qty;
+public class ListOrderCreationDto {
+
+    private String paymentMethod;
+    private List<OrderCreationDto> items;
 }

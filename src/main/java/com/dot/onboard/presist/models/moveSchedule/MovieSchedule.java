@@ -20,8 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 /**
@@ -29,32 +33,34 @@ import org.hibernate.annotations.UpdateTimestamp;
  * @author ASUS
  */
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "movie_schedules")
 public class MovieSchedule {
-    
+
+    public MovieSchedule(){}
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "studio_id", nullable = false)
     private Studio studio;
-    
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
-    
+
     @Column(name = "start_time")
     private String startTime;
-    
+
     @Column(name = "end_time")
     private String endTime;
-    
+
     private Double price;
-    
+
     private Date date;
 
     @Column(name = "create_at")
@@ -68,6 +74,4 @@ public class MovieSchedule {
     @Column(name = "delete_at")
     private Date deleteAt;
 
-    @OneToMany(mappedBy = "movieSchedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems;
 }

@@ -16,7 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,7 +25,8 @@ import org.hibernate.annotations.UpdateTimestamp;
  *
  * @author ASUS
  */
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -57,9 +59,5 @@ public class User {
 
     @Column(name = "delete_at")
     private Date deleteAt;
-    
-    
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<Order> orders;
 
 }
