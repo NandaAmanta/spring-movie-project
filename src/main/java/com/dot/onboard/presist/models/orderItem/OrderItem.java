@@ -9,7 +9,9 @@ import com.dot.onboard.presist.models.movie.Movie;
 import com.dot.onboard.presist.models.order.Order;
 import com.dot.onboard.presist.models.studio.Studio;
 import java.util.Date;
+import java.util.Map;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,19 +32,28 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Data
 @Table(name = "order_items")
 public class OrderItem {
-      
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
-    
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "movie_schedule_id", nullable = false)
     private MovieSchedule movieSchedule;
+
+    private Integer qty;
+    
+    private Double price;
+
+    @Column(name = "sub_total_price")
+    private Double subTotalPrice;
+
+//    @Column(columnDefinition = "json")
+//    private Map<String, Object> snapshots;
 
     @Column(name = "create_at")
     @CreationTimestamp

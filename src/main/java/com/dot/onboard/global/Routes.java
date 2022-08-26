@@ -16,13 +16,23 @@ public class Routes {
     public static final String AUTH = "/auth";
     public static final String LOGIN = "/login";
     public static final String SIGNUP = "/signup";
-    
-    public static final String USER = "/user";
+
+    public static final String USER = "/users";
     public static final String ME = "/me";
-    
+
     public static final String BACKOFFICE = "/backoffice";
-    
+
     public static final String MOVIE = "/movies";
+    
+    public static final String MOVIE_SCHEDULE = "/movies_schedules";
+    
+    public static final String MOVIE_TAG = "/movies_tags";
+
+    public static final String TAG = "/tags";
+
+    public static final String STUDIO = "/studios";
+
+    public static final String ORDER = "/orders";
 
     public static final String ID = "/{id}";
 

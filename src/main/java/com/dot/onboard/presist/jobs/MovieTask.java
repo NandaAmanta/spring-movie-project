@@ -39,8 +39,7 @@ public class MovieTask {
     private String apiUrl;
 
     @Async
-
-    @CacheEvict(value = Config.MOVIE_ALL_CACHE, allEntries = true)
+    @CacheEvict(value = {Config.MOVIE_ALL_CACHE, Config.MOVIE_DETAIL_CACHE}, allEntries = true)
     public void patchOngoingMovies() {
         String url = apiUrl + "/3/movie/now_playing?api_key=" + apiKey;
         ResponseEntity<MovieListTmdb> response = webClient.get(url, MovieListTmdb.class);

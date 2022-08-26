@@ -36,14 +36,14 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "payment_method")
     @Enumerated(EnumType.ORDINAL)
     private PaymentMethod paymentMethod;
 
-    @Column(name = "seat_capacity")
-    private Integer seatCapacity;
+    @Column(name = "total_item_price")
+    private Integer totalItemPrice;
 
     @Column(name = "create_at")
     @CreationTimestamp
@@ -57,7 +57,7 @@ public class Order {
     private Date deleteAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false,referencedColumnName = "id")
     private User user;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

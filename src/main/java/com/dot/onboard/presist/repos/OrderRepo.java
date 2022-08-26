@@ -5,12 +5,18 @@
 package com.dot.onboard.presist.repos;
 
 import com.dot.onboard.presist.models.order.Order;
+import com.dot.onboard.presist.models.user.User;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author ASUS
  */
-public interface OrderRepo extends JpaRepository<Order, Long>{
-    
+public interface OrderRepo extends JpaRepository<Order, Long> {
+
+    List<Order> findAllByUser(User user);
+
+    Optional<Order> findByIdAndUser(Long id, User user);
 }

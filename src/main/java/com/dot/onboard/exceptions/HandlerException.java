@@ -8,6 +8,7 @@ import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseFail;
 import io.jsonwebtoken.SignatureException;
+import io.sentry.Sentry;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response> handleUnknownError(Exception exception) {
         log.error(exception.getMessage());
+        Sentry.captureException(exception);
         response.setMessage("Internal Server Error");
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }

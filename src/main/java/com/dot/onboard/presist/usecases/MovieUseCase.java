@@ -25,7 +25,7 @@ public class MovieUseCase {
     private MovieRepo movieRepo;
 
     @Cacheable(Config.MOVIE_ALL_CACHE)
-    public List<Movie> getAll() {
+    public List<Movie> getAll(String keyword , String date) {
         List<Movie> movies = movieRepo.findAll();
         return movies;
     }

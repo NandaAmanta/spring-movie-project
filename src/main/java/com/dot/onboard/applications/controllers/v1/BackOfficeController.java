@@ -4,13 +4,24 @@
  */
 package com.dot.onboard.applications.controllers.v1;
 
+import com.dot.onboard.applications.requests.v1.movieSchedule.MovieSchduleCreationDto;
+import com.dot.onboard.applications.requests.v1.movieTag.MovieTagCreationDto;
+import com.dot.onboard.applications.requests.v1.studio.StudioCreationDto;
+import com.dot.onboard.applications.requests.v1.tag.TagCreationDto;
 import com.dot.onboard.global.Routes;
+import com.dot.onboard.presist.usecases.MovieScheduleUseCase;
+import com.dot.onboard.presist.usecases.MovieTagUseCase;
+import com.dot.onboard.presist.usecases.OrderUseCase;
+import com.dot.onboard.presist.usecases.StudioUseCase;
+import com.dot.onboard.presist.usecases.TagUseCase;
 import com.dot.onboard.presist.usecases.UserUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,18 +32,73 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Routes.API_V1 + Routes.BACKOFFICE)
 public class BackOfficeController {
-    
-    private final ResponseSuccess response= new ResponseSuccess();
-    
+
+    private final ResponseSuccess response = new ResponseSuccess();
+
     @Autowired
     private UserUseCase userUseCase;
-    
+
+    @Autowired
+    private OrderUseCase orderUseCase;
+
+    @Autowired
+    private StudioUseCase studioUseCase;
+
+    @Autowired
+    private MovieScheduleUseCase movieScheduleUseCase;
+
+    @Autowired
+    private TagUseCase tagUseCase;
+
+    @Autowired
+    private MovieTagUseCase movieTagUseCase;
+
     @GetMapping(Routes.USER)
-    public ResponseEntity<Response> getAllUser(){
+    public ResponseEntity<Response> getAllUser() {
         var data = userUseCase.getAll();
         response.setData(data);
         response.setMessage("Success get all users");
         return ResponseEntity.ok(response);
     }
-    
+
+    @GetMapping(Routes.ORDER)
+    public ResponseEntity<Response> getAllOrder() {
+        var data = orderUseCase.getAll();
+        response.setData(data);
+        response.setMessage("Success get all orders");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(Routes.STUDIO)
+    public ResponseEntity<Response> createStudio(@RequestBody StudioCreationDto dto) {
+        var data = studioUseCase.create(dto);
+        response.setData(data);
+        response.setMessage("Success create new studio");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(Routes.MOVIE_SCHEDULE)
+    public ResponseEntity<Response> createMovieSchedule(MovieSchduleCreationDto dto) {
+        var data = movieScheduleUseCase.create(dto);
+        response.setData(data);
+        response.setMessage("Success create a movie schedule");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(Routes.TAG)
+    public ResponseEntity<Response> createTag(TagCreationDto dto) {
+        var data = tagUseCase.create(dto);
+        response.setData(data);
+        response.setMessage("Success create a tag");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(Routes.MOVIE_TAG)
+    public ResponseEntity<Response> createMovieTag(MovieTagCreationDto dto) {
+        var data = movieTagUseCase.create(dto);
+        response.setData(data);
+        response.setMessage("Success add a tag on a movie");
+        return ResponseEntity.ok(response);
+    }
+
 }

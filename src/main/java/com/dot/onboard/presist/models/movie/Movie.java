@@ -30,7 +30,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Movie {
 
     @Id
-    private Long Id;
+    private Long id;
 
     private String title;
     
