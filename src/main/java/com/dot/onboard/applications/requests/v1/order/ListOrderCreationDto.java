@@ -5,6 +5,7 @@
 package com.dot.onboard.applications.requests.v1.order;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -14,6 +15,9 @@ import lombok.Data;
 @Data
 public class ListOrderCreationDto {
 
+    @NotNull
     private String paymentMethod;
+    
+    @NotNull
     private List<OrderCreationDto> items;
 }

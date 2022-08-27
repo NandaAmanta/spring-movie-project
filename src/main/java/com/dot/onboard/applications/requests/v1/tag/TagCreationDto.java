@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.tag;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -12,5 +13,6 @@ import lombok.Data;
  */
 @Data
 public class TagCreationDto {
+        @NotNull
     private String name;
 }

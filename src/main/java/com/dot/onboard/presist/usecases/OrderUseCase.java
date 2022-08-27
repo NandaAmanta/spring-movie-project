@@ -21,8 +21,8 @@ import com.dot.onboard.presist.repos.order.OrderRepo;
 import com.dot.onboard.presist.repos.UserRepo;
 import com.dot.onboard.utility.JwtTokenUtil;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +86,7 @@ public class OrderUseCase {
     }
 
     public OrderDetail detail(Long id) {
-        var data = orderRepo.findById(id).orElseThrow();
+        var data = orderRepo.findById(id).orElseThrow(()-> new NoSuchElementException("Order not found"));
         return OrderDetail.fromEntity(data);
     }
 
@@ -101,7 +101,7 @@ public class OrderUseCase {
         var orderItems = new HashSet<OrderItem>();
         Double totalPrice = 0.0;
         for (OrderCreationDto e : dto.getItems()) {
-            var movieSch = movieShcRepo.findById(e.getMovieScheduleId()).orElseThrow();
+            var movieSch = movieShcRepo.findById(e.getMovieScheduleId()).orElseThrow(()-> new NoSuchElementException("Movie not found"));
             var orderItem = new OrderItem();
             orderItem.setMovieSchedule(movieSch);
             orderItem.setPrice(movieSch.getPrice());

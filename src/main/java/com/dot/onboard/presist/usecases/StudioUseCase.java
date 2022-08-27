@@ -10,6 +10,7 @@ import com.dot.onboard.presist.models.studio.Studio;
 import com.dot.onboard.presist.repos.StudioRepo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class StudioUseCase {
     }
 
     public StudioDetail detail(Long id) {
-        var studio = studioRepo.findById(id).orElseThrow();
+        var studio = studioRepo.findById(id).orElseThrow(()-> new NoSuchElementException("Studio not found"));
         return StudioDetail.fromEntity(studio);
     }
 

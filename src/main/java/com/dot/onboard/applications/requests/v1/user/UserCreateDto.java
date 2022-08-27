@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.user;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -12,8 +13,12 @@ import lombok.Data;
  */
 @Data
 public class UserCreateDto {
+
+    @NotNull
     private String name;
+    @NotNull
     private String email;
+    @NotNull
     private String password;
-    private String avatar;
+    
 }

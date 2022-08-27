@@ -12,7 +12,7 @@ import com.dot.onboard.presist.models.movie.Movie;
 import com.dot.onboard.presist.repos.movie.MovieRepo;
 import com.dot.onboard.presist.repos.movie.MovieSpecification;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -46,7 +46,7 @@ public class MovieUseCase {
 
     @Cacheable(Config.MOVIE_DETAIL_CACHE)
     public MovieDetail detailById(Long id) {
-        Movie movie = movieRepo.findById(id).orElseThrow();
+        Movie movie = movieRepo.findById(id).orElseThrow(()-> new NoSuchElementException("Movie not found"));
         return MovieDetail.fromEntity(movie);
     }
 

@@ -79,7 +79,7 @@ public class BackOfficeController {
     }
 
     @PostMapping(Routes.MOVIE_SCHEDULE)
-    public ResponseEntity<Response> createMovieSchedule(@RequestBody MovieSchduleCreationDto dto) throws ParseException {
+    public ResponseEntity<Response> createMovieSchedule(@RequestBody MovieSchduleCreationDto dto)  {
         var data = movieScheduleUseCase.create(dto);
         response.setMessage("Success create a movie schedule");
         return ResponseEntity.ok(response);

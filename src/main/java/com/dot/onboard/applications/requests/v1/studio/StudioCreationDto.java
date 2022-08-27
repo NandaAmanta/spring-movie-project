@@ -5,6 +5,7 @@
 package com.dot.onboard.applications.requests.v1.studio;
 
 import com.dot.onboard.presist.models.studio.Studio;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -13,10 +14,14 @@ import lombok.Data;
  */
 @Data
 public class StudioCreationDto {
+
+    @NotNull
     private Integer seatCapacity;
+
+    @NotNull
     private Integer studioNumber;
-    
-    public Studio toEntity(){
+
+    public Studio toEntity() {
         var studio = new Studio();
         studio.setSeatCapacity(seatCapacity);
         studio.setStudioNumber(studioNumber);

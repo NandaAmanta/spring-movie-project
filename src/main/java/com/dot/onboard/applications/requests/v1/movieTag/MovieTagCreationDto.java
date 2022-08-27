@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.movieTag;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -12,8 +13,11 @@ import lombok.Data;
  */
 @Data
 public class MovieTagCreationDto {
-    
+
+    @NotNull
     private Long movieId;
-    private Long tagId;
     
+    @NotNull
+    private Long tagId;
+
 }

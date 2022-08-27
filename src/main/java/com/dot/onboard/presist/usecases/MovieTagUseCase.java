@@ -10,6 +10,7 @@ import com.dot.onboard.presist.repos.movie.MovieRepo;
 import com.dot.onboard.presist.repos.MovieTagRepo;
 import com.dot.onboard.presist.repos.TagRepo;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class MovieTagUseCase {
     }
 
     public MovieTags create(MovieTagCreationDto dto) {
-        var tag = tagRepo.findById(dto.getTagId()).orElseThrow();
+        var tag = tagRepo.findById(dto.getTagId()).orElseThrow(()-> new NoSuchElementException("Movie not found"));
         var movie = movieRepo.findById(dto.getMovieId()).orElseThrow();
         var movieTag = new MovieTags();
         movieTag.setMovie(movie);

@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.order;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -12,6 +13,8 @@ import lombok.Data;
  */
 @Data
 public class OrderCreationDto {
+    @NotNull
     private Long movieScheduleId;
+    @NotNull 
     private Integer qty;
 }

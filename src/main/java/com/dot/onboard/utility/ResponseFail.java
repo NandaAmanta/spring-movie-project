@@ -6,6 +6,7 @@ package com.dot.onboard.utility;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import java.util.ArrayList;
 import lombok.Data;
 
 /**
@@ -19,5 +20,5 @@ public class ResponseFail implements Response {
     private boolean success = false;
     private String message;
     private String errorCode;
-    private Object errors;
+    private Object errors = new ArrayList<>();
 }

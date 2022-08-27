@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.movieSchedule;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -13,12 +14,22 @@ import lombok.Data;
 @Data
 public class MovieSchduleCreationDto {
 
+    @NotNull
     private Long movieId;
-    private Long studioId;
-    private String startTime;
-    private String endTime;
-    private Double price;
-    private String date;
 
+    @NotNull
+    private Long studioId;
+
+    @NotNull
+    private String startTime;
+
+    @NotNull
+    private String endTime;
+
+    @NotNull
+    private Double price;
+
+    @NotNull
+    private String date;
 
 }
