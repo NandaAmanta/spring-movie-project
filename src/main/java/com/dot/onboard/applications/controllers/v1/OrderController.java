@@ -5,7 +5,6 @@
 package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.applications.requests.v1.order.ListOrderCreationDto;
-import com.dot.onboard.applications.requests.v1.order.OrderCreationDto;
 import com.dot.onboard.applications.requests.v1.order.OrderSearchParams;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.OrderUseCase;

@@ -37,10 +37,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Slf4j
 public class HandlerException extends ResponseEntityExceptionHandler {
 
-    private final ResponseFail response = new ResponseFail();
-
     @ExceptionHandler({AuthenticationException.class, SignatureException.class})
     public ResponseEntity<Response> handleAuthenticationException() {
+        ResponseFail response = new ResponseFail();
         response.setMessage("You are not authenticated, need a valid token");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
@@ -48,6 +47,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Response> handleAccessDeniedException() {
+        ResponseFail response = new ResponseFail();
         response.setMessage("Access Denied");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
@@ -55,6 +55,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFound.class)
     public ResponseEntity<Response> handleUserNotFound(UserNotFound exception) {
+        ResponseFail response = new ResponseFail();
         response.setMessage(exception.getMessage());
         response.setErrors(List.of("User not found"));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -62,20 +63,21 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<Response> handleNoResultException(NoResultException exception) {
+        ResponseFail response = new ResponseFail();
         response.setMessage(exception.getMessage());
-        response.setErrors(List.of(""));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Response> handleNoSuchElementException(NoSuchElementException exception) {
+        ResponseFail response = new ResponseFail();
         response.setMessage(exception.getMessage() == null ? "Data not found" : exception.getMessage());
-        response.setErrors(List.of(""));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CustomDataNotFoundException.class)
     public ResponseEntity<Response> handleCustomDataNotFoundException(CustomDataNotFoundException exception) {
+        ResponseFail response = new ResponseFail();
         response.setMessage(exception.getMessage());
         response.setErrors(List.of(exception.getErrors()));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -83,22 +85,14 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Response> handleIllegalArgumentException(IllegalArgumentException exception) {
+        ResponseFail response = new ResponseFail();
         response.setMessage("Bad Request");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response> handleUnknownError(Exception exception) {
-        log.error(exception.getMessage());
-        Sentry.captureException(exception);
-        Sentry.captureMessage(exception.getMessage());
-        
-        response.setMessage("Internal Server Error");
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @Override
     public ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ResponseFail response = new ResponseFail();
         response.setMessage("Method not allowed");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
@@ -106,6 +100,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @Override
     public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ResponseFail response = new ResponseFail();
         response.setMessage("Resource not found");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -115,13 +110,31 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
+        ResponseFail response = new ResponseFail();
         response.setMessage("Bad Request");
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ResponseFail response = new ResponseFail();
         response.setMessage("Bad Request");
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @Override
+    public ResponseEntity<Object> handleExceptionInternal(
+            Exception ex,
+            Object body,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+        ResponseFail response = new ResponseFail();
+        log.error(ex.getMessage());
+        Sentry.captureException(ex);
+        Sentry.captureMessage(ex.getMessage());
+        response.setMessage("Internal Server Error");
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
