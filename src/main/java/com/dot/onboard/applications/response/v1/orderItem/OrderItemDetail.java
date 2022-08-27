@@ -7,6 +7,8 @@ package com.dot.onboard.applications.response.v1.orderItem;
 import com.dot.onboard.applications.response.v1.movie.MovieDetail;
 import com.dot.onboard.applications.response.v1.studio.StudioDetail;
 import com.dot.onboard.presist.models.orderItem.OrderItem;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 /**
@@ -14,6 +16,7 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class OrderItemDetail {
     private Long id;
     private MovieDetail movie;

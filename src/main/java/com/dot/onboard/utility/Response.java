@@ -8,6 +8,7 @@ package com.dot.onboard.utility;
  *
  * @author ASUS
  */
+
 public interface Response {
     
 }

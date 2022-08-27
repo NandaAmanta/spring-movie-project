@@ -7,6 +7,8 @@ package com.dot.onboard.applications.response.v1.order;
 import com.dot.onboard.applications.response.v1.orderItem.OrderItemDetail;
 import com.dot.onboard.presist.models.order.Order;
 import com.dot.onboard.presist.models.order.PaymentMethod;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author ASUS
  */
 @Data
-
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @Slf4j
 public class OrderDetail {
     private Long id;

@@ -5,6 +5,8 @@
 package com.dot.onboard.applications.response.v1.movieSchedule;
 
 import com.dot.onboard.presist.models.moveSchedule.MovieSchedule;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.Date;
 import lombok.Data;
 
@@ -13,6 +15,7 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class MovieScheduleDetail {
 
     private Long id;

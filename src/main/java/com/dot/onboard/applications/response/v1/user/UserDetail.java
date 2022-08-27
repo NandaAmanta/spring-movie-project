@@ -6,6 +6,8 @@ package com.dot.onboard.applications.response.v1.user;
 
 import com.dot.onboard.presist.models.user.User;
 import com.dot.onboard.presist.models.user.UserRole;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 /**
@@ -13,6 +15,7 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class UserDetail {
 
     private Long id;

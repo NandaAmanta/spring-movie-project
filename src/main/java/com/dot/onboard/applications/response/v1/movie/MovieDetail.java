@@ -5,6 +5,8 @@
 package com.dot.onboard.applications.response.v1.movie;
 
 import com.dot.onboard.presist.models.movie.Movie;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.Date;
 import lombok.Data;
 
@@ -13,6 +15,7 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class MovieDetail {
 
     private Long id;

@@ -4,7 +4,7 @@
  */
 package com.dot.onboard.presist.jobs;
 
-import com.dot.onboard.global.PasswordEncoder;
+import com.dot.onboard.kernel.configs.PasswordEncoder;
 import com.dot.onboard.presist.models.user.User;
 import com.dot.onboard.presist.repos.UserRepo;
 import lombok.extern.slf4j.Slf4j;

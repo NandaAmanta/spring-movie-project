@@ -5,6 +5,8 @@
 package com.dot.onboard.applications.response.v1.studio;
 
 import com.dot.onboard.presist.models.studio.Studio;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 /**
@@ -12,6 +14,7 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class StudioDetail {
 
     private Long id;
