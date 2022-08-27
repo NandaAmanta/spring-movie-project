@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.controllers.v1;
 
+import com.dot.onboard.applications.requests.v1.movieSchedule.MovieScheduleSearchParams;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.MovieScheduleUseCase;
 import com.dot.onboard.utility.Response;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ASUS
  */
 @RestController
-@RequestMapping(Routes.API_V1 + Routes.MOVIE_SCHEDULE)
+@RequestMapping(Routes.API_V1 + Routes.MOVIE + Routes.MOVIE_SCHEDULE)
 public class MovieScheduleController {
 
     private final ResponseSuccess response = new ResponseSuccess();
@@ -29,8 +30,8 @@ public class MovieScheduleController {
     private MovieScheduleUseCase movieScheduleUseCase;
 
     @GetMapping
-    public ResponseEntity<Response> getAll() {
-        var data = movieScheduleUseCase.getAll();
+    public ResponseEntity<Response> getAll(MovieScheduleSearchParams params) {
+        var data = movieScheduleUseCase.getAll(params);
         response.setData(data);
         response.setMessage("Success get all movie schedules");
         return ResponseEntity.ok(response);

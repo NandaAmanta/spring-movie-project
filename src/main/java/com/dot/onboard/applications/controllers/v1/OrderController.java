@@ -5,7 +5,7 @@
 package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.applications.requests.v1.order.ListOrderCreationDto;
-import com.dot.onboard.applications.requests.v1.order.OrderSearchParams;
+import com.dot.onboard.applications.requests.v1.order.OrderParams;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.OrderUseCase;
 import com.dot.onboard.utility.Response;
@@ -34,7 +34,7 @@ public class OrderController {
     private OrderUseCase orderUseCase;
 
     @GetMapping
-    public ResponseEntity<Response> getAllMine(HttpServletRequest req, OrderSearchParams params) {
+    public ResponseEntity<Response> getAllMine(HttpServletRequest req, OrderParams params) {
         var data = orderUseCase.getAllMine(req, params);
         response.setMessage("Success get all my orders");
         response.setData(data);

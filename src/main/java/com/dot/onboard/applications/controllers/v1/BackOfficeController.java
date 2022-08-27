@@ -6,7 +6,7 @@ package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.applications.requests.v1.movieSchedule.MovieSchduleCreationDto;
 import com.dot.onboard.applications.requests.v1.movieTag.MovieTagCreationDto;
-import com.dot.onboard.applications.requests.v1.order.OrderSearchParams;
+import com.dot.onboard.applications.requests.v1.order.OrderParams;
 import com.dot.onboard.applications.requests.v1.studio.StudioCreationDto;
 import com.dot.onboard.applications.requests.v1.tag.TagCreationDto;
 import com.dot.onboard.global.Routes;
@@ -64,7 +64,7 @@ public class BackOfficeController {
     }
 
     @GetMapping(Routes.ORDER)
-    public ResponseEntity<Response> getAllOrder(OrderSearchParams params) {
+    public ResponseEntity<Response> getAllOrder(OrderParams params) {
         var data = orderUseCase.getAll(params);
         response.setData(data);
         response.setMessage("Success get all orders");

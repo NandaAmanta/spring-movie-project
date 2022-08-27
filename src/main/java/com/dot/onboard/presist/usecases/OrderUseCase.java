@@ -6,7 +6,7 @@ package com.dot.onboard.presist.usecases;
 
 import com.dot.onboard.applications.requests.v1.order.ListOrderCreationDto;
 import com.dot.onboard.applications.requests.v1.order.OrderCreationDto;
-import com.dot.onboard.applications.requests.v1.order.OrderSearchParams;
+import com.dot.onboard.applications.requests.v1.order.OrderParams;
 import com.dot.onboard.applications.response.v1.Pagination;
 import com.dot.onboard.applications.response.v1.order.OrderDetail;
 import com.dot.onboard.exceptions.custom.PaymentMethodNotFound;
@@ -16,8 +16,9 @@ import com.dot.onboard.presist.models.order.Order;
 import com.dot.onboard.presist.models.order.PaymentMethod;
 import com.dot.onboard.presist.models.orderItem.OrderItem;
 import com.dot.onboard.presist.models.user.User;
-import com.dot.onboard.presist.repos.MovieScheduleRepo;
+import com.dot.onboard.presist.repos.movieSchedule.MovieScheduleRepo;
 import com.dot.onboard.presist.repos.order.OrderRepo;
+import com.dot.onboard.presist.repos.order.OrderSpecification;
 import com.dot.onboard.presist.repos.UserRepo;
 import com.dot.onboard.utility.JwtTokenUtil;
 import java.util.ArrayList;
@@ -44,6 +45,9 @@ public class OrderUseCase {
 
     @Autowired
     private MovieScheduleRepo movieShcRepo;
+    
+    @Autowired
+    private OrderSpecification orderSpec;
 
     @Autowired
     private UserRepo userRepo;
@@ -52,8 +56,8 @@ public class OrderUseCase {
     private JwtTokenUtil jwtTokenUtil;
 
     @Cacheable(Config.ORDER_ALL_CACHE)
-    public Pagination<OrderDetail> getAll(OrderSearchParams params) {
-        var orders = orderRepo.findAll(PageRequest.of(params.getPage(), Config.ITEMS_PER_PAGE));
+    public Pagination<OrderDetail> getAll(OrderParams params) {
+        var orders = orderRepo.findAll(orderSpec.filter(params),PageRequest.of(params.getPage(), Config.ITEMS_PER_PAGE));
         var orderDetails = new ArrayList<OrderDetail>();
         orders.forEach((e) -> orderDetails.add(OrderDetail.fromEntity(e)));
         
@@ -64,7 +68,7 @@ public class OrderUseCase {
     }
 
     @Cacheable(Config.ORDER_ALL_MINE_CACHE)
-    public Pagination<OrderDetail> getAllMine(HttpServletRequest req, OrderSearchParams params) {String token = jwtTokenUtil.resolveToken(req);
+    public Pagination<OrderDetail> getAllMine(HttpServletRequest req, OrderParams params) {String token = jwtTokenUtil.resolveToken(req);
         String email = jwtTokenUtil.getUserNameFromToken(token);
         User user = userRepo.findByEmail(email).orElseThrow(() -> new UserNotFound("User not found!"));
         

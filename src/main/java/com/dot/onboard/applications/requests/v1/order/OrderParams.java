@@ -4,13 +4,13 @@
  */
 package com.dot.onboard.applications.requests.v1.order;
 
-import com.dot.onboard.applications.requests.v1.ParamsSearch;
+import com.dot.onboard.applications.requests.v1.Params;
 
 /**
  *
  * @author ASUS
  */
-public class OrderSearchParams extends ParamsSearch{
+public class OrderParams extends Params{
 
     
 }
