@@ -6,7 +6,7 @@ package com.dot.onboard.presist.usecases;
 
 import com.dot.onboard.applications.requests.v1.movieTag.MovieTagCreationDto;
 import com.dot.onboard.presist.models.movieTags.MovieTags;
-import com.dot.onboard.presist.repos.MovieRepo;
+import com.dot.onboard.presist.repos.movie.MovieRepo;
 import com.dot.onboard.presist.repos.MovieTagRepo;
 import com.dot.onboard.presist.repos.TagRepo;
 import java.util.List;

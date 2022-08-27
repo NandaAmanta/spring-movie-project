@@ -6,6 +6,7 @@ package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.applications.requests.v1.order.ListOrderCreationDto;
 import com.dot.onboard.applications.requests.v1.order.OrderCreationDto;
+import com.dot.onboard.applications.requests.v1.order.OrderSearchParams;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.OrderUseCase;
 import com.dot.onboard.utility.Response;
@@ -16,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +35,8 @@ public class OrderController {
     private OrderUseCase orderUseCase;
 
     @GetMapping
-    public ResponseEntity<Response> getAllMine(HttpServletRequest req) {
-        var data = orderUseCase.getAllMine(req);
+    public ResponseEntity<Response> getAllMine(HttpServletRequest req, OrderSearchParams params) {
+        var data = orderUseCase.getAllMine(req, params);
         response.setMessage("Success get all my orders");
         response.setData(data);
         return ResponseEntity.ok(response);

@@ -7,7 +7,7 @@ package com.dot.onboard.presist.usecases;
 import com.dot.onboard.applications.requests.v1.movieSchedule.MovieSchduleCreationDto;
 import com.dot.onboard.applications.response.v1.movieSchedule.MovieScheduleDetail;
 import com.dot.onboard.presist.models.moveSchedule.MovieSchedule;
-import com.dot.onboard.presist.repos.MovieRepo;
+import com.dot.onboard.presist.repos.movie.MovieRepo;
 import com.dot.onboard.presist.repos.MovieScheduleRepo;
 import com.dot.onboard.presist.repos.StudioRepo;
 import java.text.DateFormat;

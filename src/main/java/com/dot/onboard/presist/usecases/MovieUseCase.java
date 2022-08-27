@@ -9,7 +9,7 @@ import com.dot.onboard.applications.response.v1.Pagination;
 import com.dot.onboard.applications.response.v1.movie.MovieDetail;
 import com.dot.onboard.global.Config;
 import com.dot.onboard.presist.models.movie.Movie;
-import com.dot.onboard.presist.repos.MovieRepo;
+import com.dot.onboard.presist.repos.movie.MovieRepo;
 import com.dot.onboard.presist.repos.movie.MovieSpecification;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,13 @@ public class MovieUseCase {
 
     @Autowired
     private MovieRepo movieRepo;
-    
+
     @Autowired
     private MovieSpecification movieSpecification;
 
     @Cacheable(Config.MOVIE_ALL_CACHE)
     public Pagination<MovieDetail> getAll(MovieSearchParams params) {
-        Page<Movie> movies = movieRepo.findAll(movieSpecification.filter(params),PageRequest.of(params.getPage(), 10));
+        Page<Movie> movies = movieRepo.findAll(movieSpecification.filter(params), PageRequest.of(params.getPage(), Config.ITEMS_PER_PAGE));
         var movieDetails = new ArrayList<MovieDetail>();
         movies.forEach((e) -> movieDetails.add(MovieDetail.fromEntity(e)));
         var data = new Pagination(movies);

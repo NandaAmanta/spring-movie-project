@@ -7,7 +7,7 @@ package com.dot.onboard.presist.jobs;
 import com.dot.onboard.applications.response.v1.movie.MovieListTmdb;
 import com.dot.onboard.global.Config;
 import com.dot.onboard.presist.models.movie.Movie;
-import com.dot.onboard.presist.repos.MovieRepo;
+import com.dot.onboard.presist.repos.movie.MovieRepo;
 import com.dot.onboard.utility.WebClient;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

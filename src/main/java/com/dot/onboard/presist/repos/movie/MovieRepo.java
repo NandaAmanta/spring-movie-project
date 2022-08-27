@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
-package com.dot.onboard.presist.repos;
+package com.dot.onboard.presist.repos.movie;
 
 import com.dot.onboard.presist.models.movie.Movie;
 import java.util.List;

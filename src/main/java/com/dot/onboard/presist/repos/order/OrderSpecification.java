@@ -1,13 +1,12 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dot.onboard.presist.repos.movie;
+package com.dot.onboard.presist.repos.order;
 
 import com.dot.onboard.applications.requests.v1.movie.MovieSearchParams;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
 import com.dot.onboard.presist.models.movie.Movie;
+import com.dot.onboard.presist.models.order.Order;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,25 +15,20 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.Predicate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  *
  * @author ASUS
  */
-@Component
 @Slf4j
-public class MovieSpecification {
+public class OrderSpecification {
 
-    private final String COLUMN_NAME = "title";
-    private final String COLUMN_PLAY_UNTIL = "playUntil";
+    private final String COLUMN_CREATEDAT = "createdAt";
 
-    public Specification<Movie> filter(MovieSearchParams params) {
+    public Specification<Order> filter(MovieSearchParams params) {
         List<Predicate> predicates = new ArrayList<>();
         return ((root, query, cb) -> {
-            if (params.getKeyword() != null) {
-                predicates.add(cb.like(cb.upper(root.get(COLUMN_NAME)), params.getKeyword().toUpperCase()));
-            }
-
             if (params.getDate() != null) {
                 log.info(params.getDate());
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,7 +38,7 @@ public class MovieSpecification {
                 } catch (ParseException ex) {
                     log.error(ex.getMessage());
                 }
-                    predicates.add(cb.greaterThanOrEqualTo(root.<Date>get(COLUMN_PLAY_UNTIL), dateReq));
+                predicates.add(cb.greaterThanOrEqualTo(root.<Date>get(COLUMN_CREATEDAT), dateReq));
             }
             var predicateInArr = predicates.toArray(new Predicate[0]);
             return query.where(predicateInArr).getRestriction();

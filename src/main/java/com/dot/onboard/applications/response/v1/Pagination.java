@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.response.v1;
 
+import com.dot.onboard.global.Config;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.List;
@@ -20,12 +21,13 @@ public class Pagination<T> {
 
     private int totalPage;
     private int page;
-    private long total;
+    private int perPage = Config.ITEMS_PER_PAGE;
+    private long totalItems;
     private Object[] items;
 
     public Pagination(Page<T> data) {
         page = data.getNumber() + 1;
-        total = data.getTotalElements();
+        totalItems = data.getTotalElements();
         totalPage = data.getTotalPages();
     }
 
