@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.controllers.v1;
 
+import com.dot.onboard.applications.requests.v1.movie.MovieSearchParams;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.models.movie.Movie;
 import com.dot.onboard.presist.usecases.MovieUseCase;
@@ -32,8 +33,8 @@ public class MovieController {
     private final ResponseSuccess response = new ResponseSuccess();
 
     @GetMapping
-    public ResponseEntity<Response> getAll(@Nullable @RequestParam String keyword, @Nullable @RequestParam String date) {
-        var data = movieUseCase.getAll(keyword, date);
+    public ResponseEntity<Response> getAll(@Nullable MovieSearchParams params) {
+        var data = movieUseCase.getAll(params);
         response.setData(data);
         response.setMessage("Success get all movies");
         return ResponseEntity.ok(response);

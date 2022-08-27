@@ -5,9 +5,14 @@
 package com.dot.onboard.applications.response.v1.movie;
 
 import com.dot.onboard.presist.models.movie.Movie;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Data;
 
 /**
@@ -23,7 +28,14 @@ public class MovieListTmdb {
     public List<Movie> toListEntity() {
         List<Movie> movies = new ArrayList<>();
         results.forEach((MovieDetailTmdb element) -> {
-            var entity = element.toEntity();
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date playUntil = null;
+            try {
+                playUntil = formatter.parse(dates.getMaximum());
+            } catch (ParseException ex) {
+                Logger.getLogger(MovieDetailTmdb.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            var entity = element.toEntity(playUntil);
             entity.setPlayUntil(new Date());
             movies.add(entity);
         });

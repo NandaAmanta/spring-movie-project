@@ -4,7 +4,6 @@
  */
 package com.dot.onboard.applications.controllers.v1;
 
-import com.dot.onboard.applications.response.v1.movieSchedule.MovieScheduleDetail;
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.MovieScheduleUseCase;
 import com.dot.onboard.utility.Response;

@@ -11,6 +11,7 @@ import io.jsonwebtoken.SignatureException;
 import io.sentry.Sentry;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.NoResultException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -50,19 +51,26 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFound.class)
-    public ResponseEntity<Response> handleUserNotFound(Exception exception) {
+    public ResponseEntity<Response> handleUserNotFound(UserNotFound exception) {
         response.setMessage(exception.getMessage());
         response.setErrors(List.of("User not found"));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response> handleUnknownError(Exception exception) {
-        log.error(exception.getMessage());
-        Sentry.captureException(exception);
-        response.setMessage("Internal Server Error");
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    
+    @ExceptionHandler(NoResultException.class)
+    public ResponseEntity<Response> handleNoResultException(NoResultException exception) {
+        response.setMessage(exception.getMessage());
+        response.setErrors(List.of(""));
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+//
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Response> handleUnknownError(Exception exception) {
+//        log.error(exception.getMessage());
+//        Sentry.captureException(exception);
+//        response.setMessage("Internal Server Error");
+//        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @Override
     public ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
