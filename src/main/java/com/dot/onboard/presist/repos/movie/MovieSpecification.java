@@ -14,15 +14,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.criteria.Predicate;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author ASUS
  */
 @Component
+@Slf4j
 public class MovieSpecification {
 
     private final String COLUMN_NAME = "title";
@@ -31,16 +31,21 @@ public class MovieSpecification {
     public Specification<Movie> filter(MovieSearchParams params) {
         List<Predicate> predicates = new ArrayList<>();
         return ((root, query, cb) -> {
-            predicates.add(cb.like(root.get(COLUMN_NAME), params.getKeyword()));
+            if (params.getKeyword() != null) {
+                predicates.add(cb.like(cb.upper(root.get(COLUMN_NAME)), params.getKeyword().toUpperCase()));
+            }
+
             if (params.getDate() != null) {
+                log.info(params.getDate());
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 Date dateReq = null;
                 try {
                     dateReq = formatter.parse(params.getDate());
                 } catch (ParseException ex) {
-                    Logger.getLogger(MovieSearchParams.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error(ex.getMessage());
                 }
-                predicates.add(cb.lessThan(root.get(COLUMN_PLAY_UNTIL), dateReq));
+                log.info("tess -> "  + dateReq.toString());
+                    predicates.add(cb.greaterThanOrEqualTo(root.<Date>get(COLUMN_PLAY_UNTIL), dateReq));
             }
             var predicateInArr = predicates.toArray(new Predicate[0]);
             return query.where(predicateInArr).getRestriction();

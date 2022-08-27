@@ -36,7 +36,7 @@ public class MovieListTmdb {
                 Logger.getLogger(MovieDetailTmdb.class.getName()).log(Level.SEVERE, null, ex);
             }
             var entity = element.toEntity(playUntil);
-            entity.setPlayUntil(new Date());
+            entity.setPlayUntil(playUntil);
             movies.add(entity);
         });
         return movies;
