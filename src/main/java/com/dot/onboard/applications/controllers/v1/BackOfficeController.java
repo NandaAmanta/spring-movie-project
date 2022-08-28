@@ -35,8 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(Routes.API_V1 + Routes.BACKOFFICE)
 public class BackOfficeController {
 
-    private final ResponseSuccess response = new ResponseSuccess();
-
     @Autowired
     private UserUseCase userUseCase;
 
@@ -57,6 +55,7 @@ public class BackOfficeController {
 
     @GetMapping(Routes.USER)
     public ResponseEntity<Response> getAllUser() {
+        ResponseSuccess response = new ResponseSuccess();
         var data = userUseCase.getAll();
         response.setData(data);
         response.setMessage("Success get all users");
@@ -65,6 +64,7 @@ public class BackOfficeController {
 
     @GetMapping(Routes.ORDER)
     public ResponseEntity<Response> getAllOrder(OrderParams params) {
+        ResponseSuccess response = new ResponseSuccess();
         var data = orderUseCase.getAll(params);
         response.setData(data);
         response.setMessage("Success get all orders");
@@ -73,13 +73,15 @@ public class BackOfficeController {
 
     @PostMapping(Routes.STUDIO)
     public ResponseEntity<Response> createStudio(@RequestBody StudioCreationDto dto) {
+        ResponseSuccess response = new ResponseSuccess();
         var data = studioUseCase.create(dto);
         response.setMessage("Success create new studio");
         return ResponseEntity.ok(response);
     }
 
     @PostMapping(Routes.MOVIE_SCHEDULE)
-    public ResponseEntity<Response> createMovieSchedule(@RequestBody MovieSchduleCreationDto dto)  {
+    public ResponseEntity<Response> createMovieSchedule(@RequestBody MovieSchduleCreationDto dto) {
+        ResponseSuccess response = new ResponseSuccess();
         var data = movieScheduleUseCase.create(dto);
         response.setMessage("Success create a movie schedule");
         return ResponseEntity.ok(response);
@@ -87,6 +89,7 @@ public class BackOfficeController {
 
     @PostMapping(Routes.TAG)
     public ResponseEntity<Response> createTag(@RequestBody TagCreationDto dto) {
+        ResponseSuccess response = new ResponseSuccess();
         var data = tagUseCase.create(dto);
         response.setMessage("Success create a tag");
         return ResponseEntity.ok(response);
@@ -94,6 +97,7 @@ public class BackOfficeController {
 
     @PostMapping(Routes.MOVIE_TAG)
     public ResponseEntity<Response> createMovieTag(MovieTagCreationDto dto) {
+        ResponseSuccess response = new ResponseSuccess();
         var data = movieTagUseCase.create(dto);
         response.setMessage("Success add a tag on a movie");
         return ResponseEntity.ok(response);
