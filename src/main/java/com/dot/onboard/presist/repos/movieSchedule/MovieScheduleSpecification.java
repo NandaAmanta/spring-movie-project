@@ -37,7 +37,7 @@ public class MovieScheduleSpecification {
         return ((root, query, cb) -> {
 
             if (params.getKeyword() != null) {
-                Join<Movie, MovieSchedule> movie = root.join("movies");
+                Join<Movie, MovieSchedule> movie = root.join("movie");
                 predicates.add(cb.like(cb.upper(movie.get(COLUMN_MOVIE_TITLE)), params.getKeyword().toUpperCase()));
             }
 

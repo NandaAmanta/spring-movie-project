@@ -23,7 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class GlobalFilter extends OncePerRequestFilter {
     
     @Autowired
-    private IpFilter headerValidationFilter;
+    private IpFilter ipFilter;
     
     @Autowired
     private AuthenticationFilter authFilter;
@@ -31,7 +31,7 @@ public class GlobalFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        headerValidationFilter.doFilter(request,response);
+        ipFilter.doFilter(request,response);
         authFilter.doFilter(request, response);
         filterChain.doFilter(request, response);
     }

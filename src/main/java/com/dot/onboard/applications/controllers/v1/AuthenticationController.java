@@ -11,6 +11,7 @@ import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.AuthUseCase;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseSuccess;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,15 +33,15 @@ public class AuthenticationController {
     private final ResponseSuccess response = new ResponseSuccess();
 
     @PostMapping(Routes.SIGNUP)
-    public ResponseEntity<Response> signup(@RequestBody UserCreateDto dto) {
+    public ResponseEntity<Response> signup(@Valid @RequestBody UserCreateDto dto) {
         var data = authUseCase.signup(dto);
         response.setMessage("Success Signup");
-        response.setData(UserDetail.fromEntity(data));
+        response.setData(data);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping(Routes.LOGIN)
-    public ResponseEntity<Response> login(@RequestBody UserLoginDto dto) {
+    public ResponseEntity<Response> login(@Valid @RequestBody UserLoginDto dto) {
         var data = authUseCase.login(dto);
         response.setMessage("Success Login");
         response.setData(data);

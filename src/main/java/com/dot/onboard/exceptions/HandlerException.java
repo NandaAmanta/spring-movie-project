@@ -5,6 +5,7 @@
 package com.dot.onboard.exceptions;
 
 import com.dot.onboard.exceptions.custom.CustomDataNotFoundException;
+import com.dot.onboard.exceptions.custom.EmailAlreadyInUsedException;
 import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseFail;
@@ -86,8 +87,18 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Response> handleIllegalArgumentException(IllegalArgumentException exception) {
         ResponseFail response = new ResponseFail();
+        log.error(exception.getMessage());
         response.setMessage("Bad Request");
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmailAlreadyInUsedException.class)
+    public ResponseEntity<Response> handleEmailAlreadyInUsedException(EmailAlreadyInUsedException exception) {
+        ResponseFail response = new ResponseFail();
+        log.error(exception.getMessage());
+        response.setMessage("Bad Request, this email is already used");
+        response.setErrors(List.of(exception.getMessage()));
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @Override

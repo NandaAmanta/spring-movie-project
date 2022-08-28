@@ -6,7 +6,9 @@ package com.dot.onboard.presist.usecases;
 
 import com.dot.onboard.applications.requests.v1.user.UserCreateDto;
 import com.dot.onboard.applications.requests.v1.user.UserLoginDto;
+import com.dot.onboard.applications.response.v1.user.UserDetail;
 import com.dot.onboard.applications.response.v1.user.UserDetailToken;
+import com.dot.onboard.exceptions.custom.EmailAlreadyInUsedException;
 import com.dot.onboard.kernel.configs.PasswordEncoder;
 import com.dot.onboard.presist.models.user.User;
 import com.dot.onboard.presist.repos.UserRepo;
@@ -49,13 +51,17 @@ public class AuthUseCase {
         return userDetailToken;
     }
 
-    public User signup(UserCreateDto dto) {
+    public UserDetail signup(UserCreateDto dto) {
+        boolean isEmailExist = userRepo.findByEmail(dto.getEmail()).isPresent();
+        if (isEmailExist) {
+            throw new EmailAlreadyInUsedException("this email is already in used");
+        }
         var user = new User();
         var encodedPassword = passwordEncoder.getEncoder().encode(dto.getPassword());
         user.setEmail(dto.getEmail());
         user.setName(dto.getName());
         user.setPassword(encodedPassword);
-        return userRepo.save(user);
+        return UserDetail.fromEntity(userRepo.save(user));
     }
 
     private void authenticate(String username, String password) {
