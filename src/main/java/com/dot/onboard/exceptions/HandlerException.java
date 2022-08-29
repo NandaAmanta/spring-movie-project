@@ -80,7 +80,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     public ResponseEntity<Response> handleCustomDataNotFoundException(CustomDataNotFoundException exception) {
         ResponseFail response = new ResponseFail();
         response.setMessage(exception.getMessage());
-        response.setErrors(List.of(exception.getErrors()));
+        response.setErrors(exception.getErrors());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
