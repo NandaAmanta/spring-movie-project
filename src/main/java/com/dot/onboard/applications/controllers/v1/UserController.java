@@ -35,20 +35,16 @@ public class UserController {
 
     @GetMapping(Routes.ME)
     public ResponseEntity<Response> selfDetail(HttpServletRequest req) {
-        var user = userUseCase.detailByHttpServletRequest(req);
-        UserDetail userDetail = UserDetail.fromEntity(user);
-
+        var data = userUseCase.detailByHttpServletRequest(req);
         response.setMessage("Success get detail user");
-        response.setData(userDetail);
+        response.setData(data);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping(Routes.ME)
     public ResponseEntity<Response> update(@ModelAttribute UserUpdateDto dto, HttpServletRequest req) throws IOException {
-        var user = userUseCase.update(dto, req);
-        UserDetail userDetail = UserDetail.fromEntity(user);
-
-        response.setData(userDetail);
+        var data = userUseCase.update(dto, req);
+        response.setData(data);
         response.setMessage("Success update user");
         return ResponseEntity.ok(response);
     }

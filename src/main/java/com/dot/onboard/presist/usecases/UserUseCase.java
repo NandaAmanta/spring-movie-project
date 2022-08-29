@@ -57,14 +57,14 @@ public class UserUseCase implements UserDetailsService {
         return userDetails;
     }
 
-    public User detailByHttpServletRequest(HttpServletRequest req) {
+    public UserDetail detailByHttpServletRequest(HttpServletRequest req) {
         String token = jwtTokenUtil.resolveToken(req);
         String email = jwtTokenUtil.getUserNameFromToken(token);
         User user = userRepo.findByEmail(email).orElseThrow(() -> new UserNotFound("User not found!"));
-        return user;
+        return UserDetail.fromEntity(user);
     }
 
-    public User update(UserUpdateDto dto, HttpServletRequest req) throws IOException {
+    public UserDetail update(UserUpdateDto dto, HttpServletRequest req) throws IOException {
         String token = jwtTokenUtil.resolveToken(req);
         String email = jwtTokenUtil.getUserNameFromToken(token);
         User user = userRepo.findByEmail(email).orElseThrow(() -> new UserNotFound("User not found!"));
@@ -78,15 +78,15 @@ public class UserUseCase implements UserDetailsService {
             user.setAvatar(uri);
         }
 
-        return userRepo.save(user);
+        return UserDetail.fromEntity(userRepo.save(user));
     }
-    
-    public List<UserDetail> getAll(){
+
+    public List<UserDetail> getAll() {
         var users = userRepo.findAll();
         List<UserDetail> userDetails = new ArrayList<>();
         users.forEach((element) -> userDetails.add(UserDetail.fromEntity(element)));
         return userDetails;
-        
+
     }
 
     private UserRole getRole(User user) {
