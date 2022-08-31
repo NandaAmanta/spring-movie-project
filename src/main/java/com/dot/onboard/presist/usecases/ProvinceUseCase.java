@@ -38,13 +38,11 @@ public class ProvinceUseCase {
         try {
             String urlReq = url + "/province?key=" + key;
             var response = webClient.get(urlReq, RajaOngkirResponse.class);
-            if (response.getStatusCode().isError()) {
-                throw new ThirdPartyException();
-            }
             var data = response.getBody().getRajaongkir().getResults();
             return (List<Province>) data;
         } catch (Exception ex) {
-            throw new ThirdPartyException();
+            log.error("error message : ", ex.getMessage());
+            throw new ThirdPartyException(ex.getMessage());
         }
     }
 

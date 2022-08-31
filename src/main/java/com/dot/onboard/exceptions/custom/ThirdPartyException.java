@@ -17,6 +17,10 @@ public class ThirdPartyException extends RuntimeException {
     public ThirdPartyException() {
     }
 
+    public ThirdPartyException(String message) {
+        super(message);
+    }
+    
     public ThirdPartyException(String message, List<String> errors) {
         super(message);
         this.errors = errors;

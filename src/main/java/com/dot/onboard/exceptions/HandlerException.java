@@ -6,6 +6,7 @@ package com.dot.onboard.exceptions;
 
 import com.dot.onboard.exceptions.custom.CustomDataNotFoundException;
 import com.dot.onboard.exceptions.custom.EmailAlreadyInUsedException;
+import com.dot.onboard.exceptions.custom.ThirdPartyException;
 import com.dot.onboard.exceptions.custom.UserNotFound;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseFail;
@@ -100,6 +101,17 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         response.setMessage("Bad Request, this email is already used");
         response.setErrors(List.of(exception.getMessage()));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ThirdPartyException.class)
+    public ResponseEntity<Response> handleThirdPartyException(ThirdPartyException exception) {
+        ResponseFail response = new ResponseFail();
+        log.error(exception.getMessage());
+        Sentry.captureException(exception);
+        Sentry.captureMessage(exception.getMessage());
+        response.setMessage("Internal Server Error");
+        response.setErrors(List.of(exception.getMessage()));
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
