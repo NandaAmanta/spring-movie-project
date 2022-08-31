@@ -4,7 +4,8 @@
  */
 package com.dot.onboard.applications.requests.v1.user;
 
-import javax.validation.constraints.NotNull;
+import com.dot.onboard.applications.validations.rules.Email;
+import com.dot.onboard.applications.validations.rules.Password;
 import lombok.Data;
 
 /**
@@ -13,8 +14,9 @@ import lombok.Data;
  */
 @Data
 public class UserLoginDto {
-    @NotNull
+
+    @Email
     private String email;
-    @NotNull
+    @Password
     private String password;
 }

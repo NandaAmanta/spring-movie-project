@@ -15,10 +15,10 @@ import lombok.Data;
 @Data
 public class StudioCreationDto {
 
-    @NotNull
+    @NotNull(message = "seatCapacity can't be empty")
     private Integer seatCapacity;
 
-    @NotNull
+    @NotNull(message = "studioNumber can't be empty")
     private Integer studioNumber;
 
     public Studio toEntity() {

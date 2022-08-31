@@ -14,22 +14,22 @@ import lombok.Data;
 @Data
 public class MovieSchduleCreationDto {
 
-    @NotNull
+    @NotNull(message = "movieId can't be empty")
     private Long movieId;
 
-    @NotNull
+    @NotNull(message = "studioId can't be empty")
     private Long studioId;
 
-    @NotNull
+    @NotNull(message = "startTime can't be empty")
     private String startTime;
 
-    @NotNull
+    @NotNull(message = "endTime can't be empty")
     private String endTime;
 
-    @NotNull
+    @NotNull(message = "price can't be empty")
     private Double price;
 
-    @NotNull
+    @NotNull(message = "date can't be empty")
     private String date;
 
 }

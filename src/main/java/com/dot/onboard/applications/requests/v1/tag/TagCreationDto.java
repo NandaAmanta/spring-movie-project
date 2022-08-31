@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class TagCreationDto {
-        @NotNull
+
+    @NotNull(message = "name can't be empty")
     private String name;
 }
