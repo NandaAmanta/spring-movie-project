@@ -18,9 +18,11 @@ public class Config {
     public static final String ORDER_ALL_MINE_CACHE = "orderAllMineCache";
     public static final String TAG_ALL_CACHE = "tagAllCache";
     public static final String PROVINCE_ALL_CACHE = "provinceAllCache";
+    public static final String CITY_ALL_CACHE = "cityAllCache";
+
     public static final String EMAIL_VALID_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     public static final String PASSWORD_VALID_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
-    
+
     public static final int ITEMS_PER_PAGE = 10;
 
     public static String getProjectDir() {

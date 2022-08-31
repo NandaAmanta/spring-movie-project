@@ -35,6 +35,7 @@ public class Routes {
     public static final String ORDER = "/orders";
     
     public static final String PROVINCE = "/provinces";
+    public static final String CITY = "/cities";
 
     public static final String ID = "/{id}";
 
