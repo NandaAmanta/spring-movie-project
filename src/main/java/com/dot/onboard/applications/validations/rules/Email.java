@@ -9,6 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.regex.Pattern;
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -40,7 +41,8 @@ class CheckEmail implements ConstraintValidator<Email, String> {
 
     @Override
     public boolean isValid(String t, ConstraintValidatorContext cvc) {
-        return t != null && t.contains("@") && t.contains(".");
+        Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        return t != null && pattern.matcher(t).matches();
     }
 
 }
