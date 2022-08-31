@@ -19,12 +19,19 @@ public class TaskScheduller {
 
     @Autowired
     private MovieTask movieTask;
-    
+
+    @Autowired
+    private CacheTask cacheTask;
+
     @Scheduled(cron = "0 0 * * * *")
-//    @Scheduled(fixedDelay = 60000)
     public void syncOngoingMovieSchedulle() {
         log.info("patching ongoing movie data...");
         movieTask.patchOngoingMovies();
+    }
+
+    @Scheduled(cron = "0 0 * * * *")
+    public void clearCaches() {
+        cacheTask.evictProvinces();
     }
 
 }

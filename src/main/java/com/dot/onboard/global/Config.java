@@ -17,6 +17,7 @@ public class Config {
     public static final String ORDER_ALL_CACHE = "orderAllCache";
     public static final String ORDER_ALL_MINE_CACHE = "orderAllMineCache";
     public static final String TAG_ALL_CACHE = "tagAllCache";
+    public static final String PROVINCE_ALL_CACHE = "provinceAllCache";
     
     public static final int ITEMS_PER_PAGE = 10;
 

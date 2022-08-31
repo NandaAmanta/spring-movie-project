@@ -47,6 +47,7 @@ public class SecutiryConfig {
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/signup", "/api/v1/auth/login", "/h2-console/**").permitAll()
                 .antMatchers("/api/v1/movies").permitAll()
+                .antMatchers("/api/v1/provinces").permitAll()
                 .antMatchers("/api/v1/backoffice/**").hasRole(UserRole.ADMIN.toString())
                 .anyRequest().authenticated().and()
                 .sessionManagement()

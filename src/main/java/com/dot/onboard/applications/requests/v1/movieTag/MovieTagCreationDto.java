@@ -14,10 +14,10 @@ import lombok.Data;
 @Data
 public class MovieTagCreationDto {
 
-    @NotNull
+    @NotNull(message = "movieId can't be empty")
     private Long movieId;
-    
-    @NotNull
+
+    @NotNull(message = "tagId can't be empty")
     private Long tagId;
 
 }
