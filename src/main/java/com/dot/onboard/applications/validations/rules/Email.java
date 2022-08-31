@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.validations.rules;
 
+import com.dot.onboard.global.Config;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -41,7 +42,7 @@ class CheckEmail implements ConstraintValidator<Email, String> {
 
     @Override
     public boolean isValid(String t, ConstraintValidatorContext cvc) {
-        Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(Config.EMAIL_VALID_REGEX, Pattern.CASE_INSENSITIVE);
         return t != null && pattern.matcher(t).matches();
     }
 

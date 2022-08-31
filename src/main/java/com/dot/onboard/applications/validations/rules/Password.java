@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.validations.rules;
 
+import com.dot.onboard.global.Config;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -41,7 +42,7 @@ class CheckPassword implements ConstraintValidator<Password, String> {
 
     @Override
     public boolean isValid(String t, ConstraintValidatorContext cvc) {
-        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
+        Pattern pattern = Pattern.compile(Config.PASSWORD_VALID_REGEX);
         return t != null && pattern.matcher(t).matches();
     }
 
