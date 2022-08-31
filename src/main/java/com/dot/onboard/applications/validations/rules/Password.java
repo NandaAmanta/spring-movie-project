@@ -9,6 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.regex.Pattern;
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Component;
 public @interface Password {
     //error message  
 
-    public String message() default "Password must contain minimal 8 characters.";
+    public String message() default "Password must contain 8-20 characters, 1 lowercase character(a-z), 1 uppercase character(A-Z) and 1 special character(!,@,#,&,*)";
 
     //represents group of constraints     
     public Class<?>[] groups() default {};
@@ -40,7 +41,8 @@ class CheckPassword implements ConstraintValidator<Password, String> {
 
     @Override
     public boolean isValid(String t, ConstraintValidatorContext cvc) {
-        return !(t == null || t.length() < 8);
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
+        return t != null && pattern.matcher(t).matches();
     }
 
 }
