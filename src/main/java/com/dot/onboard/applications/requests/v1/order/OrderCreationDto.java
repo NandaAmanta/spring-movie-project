@@ -13,8 +13,10 @@ import lombok.Data;
  */
 @Data
 public class OrderCreationDto {
-    @NotNull
+
+    @NotNull(message = "movieScheduleId can't be empty")
     private Long movieScheduleId;
-    @NotNull 
+
+    @NotNull(message = "qty can't be empty")
     private Integer qty;
 }

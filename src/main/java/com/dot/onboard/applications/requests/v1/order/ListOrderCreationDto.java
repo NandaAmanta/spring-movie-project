@@ -15,9 +15,9 @@ import lombok.Data;
 @Data
 public class ListOrderCreationDto {
 
-    @NotNull
+    @NotNull(message = "payment method can't be empty")
     private String paymentMethod;
-    
-    @NotNull
+
+    @NotNull(message = "items method can't be empty")
     private List<OrderCreationDto> items;
 }

@@ -89,6 +89,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         ResponseFail response = new ResponseFail();
         log.error(exception.getMessage());
         response.setMessage("Bad Request");
+        response.setErrors(exception.getLocalizedMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -123,12 +124,17 @@ public class HandlerException extends ResponseEntityExceptionHandler {
             HttpStatus status, WebRequest request) {
         ResponseFail response = new ResponseFail();
         response.setMessage("Bad Request");
+        response.setErrors(ex.getMessage());
+
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ResponseFail response = new ResponseFail();
+        List<String> error = new ArrayList<>();
+        ex.getBindingResult().getFieldErrors().forEach(e -> error.add(e.getDefaultMessage()));
+        response.setErrors(error);
         response.setMessage("Bad Request");
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }

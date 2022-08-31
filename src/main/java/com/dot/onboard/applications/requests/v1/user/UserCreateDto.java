@@ -4,6 +4,8 @@
  */
 package com.dot.onboard.applications.requests.v1.user;
 
+import com.dot.onboard.applications.validations.rules.Email;
+import com.dot.onboard.applications.validations.rules.Password;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -14,11 +16,13 @@ import lombok.Data;
 @Data
 public class UserCreateDto {
 
-    @NotNull
+    @NotNull(message = "name can't be empty")
     private String name;
-    @NotNull
+
+    @Email
     private String email;
-    @NotNull
+
+    @Password
     private String password;
-    
+
 }
