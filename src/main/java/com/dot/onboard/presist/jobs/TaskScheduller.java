@@ -32,6 +32,7 @@ public class TaskScheduller {
     @Scheduled(cron = "0 0 * * * *")
     public void clearCaches() {
         cacheTask.evictProvinces();
+        cacheTask.evictCities();
     }
 
 }

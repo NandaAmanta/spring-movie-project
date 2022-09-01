@@ -23,4 +23,10 @@ public class CacheTask {
     public void evictProvinces() {
         log.info("evict provinces cache");
     }
+    
+    @Async
+    @CacheEvict(value = Config.CITY_ALL_CACHE, allEntries = true)
+    public void evictCities() {
+        log.info("evict provinces cache");
+    }
 }
