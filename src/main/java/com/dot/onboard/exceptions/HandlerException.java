@@ -99,7 +99,6 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         ResponseFail response = new ResponseFail();
         log.error(exception.getMessage());
         response.setMessage("Bad Request");
-        response.setErrors(exception.getLocalizedMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -145,8 +144,8 @@ public class HandlerException extends ResponseEntityExceptionHandler {
             HttpStatus status, WebRequest request) {
         ResponseFail response = new ResponseFail();
         response.setMessage("Bad Request");
-        response.setErrors(ex.getMessage());
-
+        response.setErrors(List.of("Invalid request body"));
+        log.error(ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -175,4 +174,14 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Response> handleInternalServerError(Exception exception) {
+        ResponseFail response = new ResponseFail();
+        log.error(exception.getMessage());
+        Sentry.captureException(exception);
+        Sentry.captureMessage(exception.getMessage());
+        response.setMessage("Internal Server Error");
+        response.setErrors(List.of(exception.getMessage()));
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
