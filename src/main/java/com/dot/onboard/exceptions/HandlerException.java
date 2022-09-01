@@ -8,6 +8,7 @@ import com.dot.onboard.exceptions.custom.CustomDataNotFoundException;
 import com.dot.onboard.exceptions.custom.EmailAlreadyInUsedException;
 import com.dot.onboard.exceptions.custom.ThirdPartyException;
 import com.dot.onboard.exceptions.custom.UserNotFound;
+import com.dot.onboard.exceptions.custom.WrongCredentialException;
 import com.dot.onboard.utility.Response;
 import com.dot.onboard.utility.ResponseFail;
 import io.jsonwebtoken.SignatureException;
@@ -43,6 +44,14 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     public ResponseEntity<Response> handleAuthenticationException() {
         ResponseFail response = new ResponseFail();
         response.setMessage("You are not authenticated, need a valid token");
+        response.setErrors(new ArrayList<>());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(WrongCredentialException.class)
+    public ResponseEntity<Response> handleWrongCredentialException() {
+        ResponseFail response = new ResponseFail();
+        response.setMessage("Wrong credentials");
         response.setErrors(new ArrayList<>());
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }

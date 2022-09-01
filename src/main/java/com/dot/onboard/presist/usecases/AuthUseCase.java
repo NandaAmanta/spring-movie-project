@@ -9,6 +9,7 @@ import com.dot.onboard.applications.requests.v1.user.UserLoginDto;
 import com.dot.onboard.applications.response.v1.user.UserDetail;
 import com.dot.onboard.applications.response.v1.user.UserDetailToken;
 import com.dot.onboard.exceptions.custom.EmailAlreadyInUsedException;
+import com.dot.onboard.exceptions.custom.WrongCredentialException;
 import com.dot.onboard.kernel.configs.PasswordEncoder;
 import com.dot.onboard.presist.models.user.User;
 import com.dot.onboard.presist.repos.UserRepo;
@@ -16,6 +17,7 @@ import com.dot.onboard.utility.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +67,11 @@ public class AuthUseCase {
     }
 
     private void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+        } catch (AuthenticationException ex) {
+            throw new WrongCredentialException();
+        }
     }
 }
