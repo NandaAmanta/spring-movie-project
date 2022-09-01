@@ -7,7 +7,6 @@ package com.dot.onboard.applications.response.v1;
 import com.dot.onboard.global.Config;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import java.util.List;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 

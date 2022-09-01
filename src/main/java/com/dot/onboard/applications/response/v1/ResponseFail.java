@@ -2,22 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package com.dot.onboard.applications.response.v1;
 
-package com.dot.onboard.utility;
-
+import com.dot.onboard.applications.response.v1.Response;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import java.util.ArrayList;
 import lombok.Data;
 
 /**
  *
  * @author ASUS
  */
-@JsonNaming(SnakeCaseStrategy.class)
 @Data
-public class ResponseSuccess implements Response {
+@JsonNaming(SnakeCaseStrategy.class)
+public class ResponseFail implements Response {
 
-    private boolean success = true;
+    private boolean success = false;
     private String message;
-    private Object data;
+    private String errorCode;
+    private Object errors = new ArrayList<>();
 }

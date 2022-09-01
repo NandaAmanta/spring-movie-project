@@ -6,8 +6,8 @@ package com.dot.onboard.applications.controllers.v1;
 
 import com.dot.onboard.global.Routes;
 import com.dot.onboard.presist.usecases.CityUseCase;
-import com.dot.onboard.utility.Response;
-import com.dot.onboard.utility.ResponseSuccess;
+import com.dot.onboard.applications.response.v1.Response;
+import com.dot.onboard.applications.response.v1.ResponseSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
