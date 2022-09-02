@@ -4,6 +4,7 @@
  */
 package com.dot.onboard.applications.requests.v1.user;
 
+import com.dot.onboard.applications.validations.rules.Avatar;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Data
 public class UserUpdateDto {
+
     private String name;
+
+    @Avatar
     private MultipartFile file;
 
 }

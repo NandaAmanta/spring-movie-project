@@ -17,6 +17,7 @@ public class UserLoginDto {
 
     @Email
     private String email;
+
     @Password
     private String password;
 }
