@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import javax.persistence.NoResultException;
-import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -151,6 +151,16 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     }
 
     @Override
+    protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ResponseFail response = new ResponseFail();
+        List<String> error = new ArrayList<>();
+        ex.getBindingResult().getFieldErrors().forEach(e -> error.add(e.getDefaultMessage()));
+        response.setErrors(error);
+        response.setMessage("Bad Request");
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ResponseFail response = new ResponseFail();
         List<String> error = new ArrayList<>();
@@ -175,6 +185,15 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+//    @ExceptionHandler(BindException.class)
+//    public ResponseEntity<Response> handleBindException(BindException ex) {
+//        ResponseFail response = new ResponseFail();
+//        List<String> error = new ArrayList<>();
+//        ex.getBindingResult().getFieldErrors().forEach(e -> error.add(e.getDefaultMessage()));
+//        response.setErrors(error);
+//        response.setMessage("Bad Request");
+//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
 //    @ExceptionHandler(Exception.class)
 //    public ResponseEntity<Response> handleInternalServerError(Exception exception) {
 //        ResponseFail response = new ResponseFail();
