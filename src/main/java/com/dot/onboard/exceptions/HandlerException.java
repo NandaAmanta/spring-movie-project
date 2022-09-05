@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import javax.persistence.NoResultException;
+import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -174,14 +175,14 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response> handleInternalServerError(Exception exception) {
-        ResponseFail response = new ResponseFail();
-        log.error(exception.getMessage());
-        Sentry.captureException(exception);
-        Sentry.captureMessage(exception.getMessage());
-        response.setMessage("Internal Server Error");
-        response.setErrors(List.of(exception.getMessage()));
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Response> handleInternalServerError(Exception exception) {
+//        ResponseFail response = new ResponseFail();
+//        log.error(exception.getMessage());
+//        Sentry.captureException(exception);
+//        Sentry.captureMessage(exception.getMessage());
+//        response.setMessage("Internal Server Error");
+//        response.setErrors(List.of(exception.getMessage()));
+//        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

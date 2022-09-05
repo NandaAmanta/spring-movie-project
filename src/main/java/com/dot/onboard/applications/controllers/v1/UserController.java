@@ -12,6 +12,7 @@ import com.dot.onboard.applications.response.v1.Response;
 import com.dot.onboard.applications.response.v1.ResponseSuccess;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping(Routes.ME)
-    public ResponseEntity<Response> update(@ModelAttribute UserUpdateDto dto, HttpServletRequest req) throws IOException {
+    public ResponseEntity<Response> update(@ModelAttribute @Valid UserUpdateDto dto, HttpServletRequest req) throws IOException {
         var data = userUseCase.update(dto, req);
         response.setData(data);
         response.setMessage("Success update user");
