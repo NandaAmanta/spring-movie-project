@@ -62,11 +62,11 @@ public class UserRepoTest {
         Assertions.assertNotNull(userFound.orElse(null));
 
     }
-    
+
     @Test
     public void findByEmail_emailUserNotExist_optionalUser() {
         // given
-        String notExistEmailUser = "askdalskdjaskldjas";
+        String notExistEmailUser = "nosExistEmailUser";
 
         // then
         var userFound = userRepo.findByEmail(notExistEmailUser);
@@ -76,6 +76,15 @@ public class UserRepoTest {
         Assertions.assertNull(userFound.orElse(null));
 
     }
-    
+
+    @Test
+    public void findAll_userExist_ListUser() {
+
+        // then
+        var userFound = userRepo.findAll();
+
+        // result
+        Assertions.assertFalse(userFound.isEmpty());
+    }
 
 }
