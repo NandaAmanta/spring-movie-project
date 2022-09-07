@@ -4,8 +4,10 @@
  */
 package com.dot.onboard.presist.jobs;
 
+import com.dot.onboard.exceptions.custom.ThirdPartyException;
 import com.dot.onboard.presist.jobs.tasks.MovieTask;
 import com.dot.onboard.presist.jobs.tasks.CacheTask;
+import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,14 +23,13 @@ public class TaskScheduller {
 
     @Autowired
     private MovieTask movieTask;
-    
+
     @Autowired
     private CacheTask cacheTask;
 
     @Scheduled(cron = "${app.data.movie.patch.cron}")
     public void loadOngoingMovieSchedulle() {
-        log.info("patching ongoing movie data...");
-        movieTask.patchOngoingMovies();
+         movieTask.patchOngoingMovies();
     }
 
     @Scheduled(cron = "${app.cache.evict.cron}")
