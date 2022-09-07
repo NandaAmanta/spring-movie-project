@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
-package com.dot.onboard.presist.jobs;
+package com.dot.onboard.presist.jobs.tasks;
 
 import com.dot.onboard.applications.response.v1.movie.MovieListTmdb;
 import com.dot.onboard.global.Config;

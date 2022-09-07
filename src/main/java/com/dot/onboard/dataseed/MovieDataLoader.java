@@ -4,7 +4,7 @@
  */
 package com.dot.onboard.dataseed;
 
-import com.dot.onboard.presist.jobs.MovieTask;
+import com.dot.onboard.presist.jobs.tasks.MovieTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

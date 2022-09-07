@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.dot.onboard.presist.jobs;
+package com.dot.onboard.presist.jobs.tasks;
 
 import com.dot.onboard.global.Config;
 import lombok.extern.slf4j.Slf4j;
