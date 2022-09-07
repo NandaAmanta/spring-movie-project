@@ -33,7 +33,7 @@ public class UserRepoTest {
     private PasswordEncoder passwordEncoder;
 
     private final String EMAIL_USER_EXIST = "Nansamgr@gmail.com";
-    private final User user = new User();
+    private User user = new User();
 
     @BeforeAll
     public void setUp() {
@@ -41,12 +41,12 @@ public class UserRepoTest {
         user.setEmail(EMAIL_USER_EXIST);
         user.setIsAdmin(Boolean.FALSE);
         user.setPassword(passwordEncoder.getEncoder().encode("password"));
-        userRepo.save(user);
+        user = userRepo.save(user);
     }
 
     @AfterAll
     public void clear() {
-        userRepo.deleteAll();
+        userRepo.delete(user);
     }
 
     @Test
